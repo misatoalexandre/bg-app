@@ -7,6 +7,8 @@
 //
 
 #import "BookDetailTVC.h"
+#import "AppDelegate.h"
+
 
 @interface BookDetailTVC ()
 
@@ -48,25 +50,44 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        if ([segue.identifier isEqualToString:@"addGenre"]) {
+            
+            BookGenreTVC *bgtvc=(BookGenreTVC *)[segue destinationViewController];
+            bgtvc.delegate=self;
+            
+            AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+            bgtvc.managedObjectContext=myApp.managedObjectContext;
+        }
+}
+-(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller  {
+    //Passing the selectedGenre's value to the BookDetailTVC and displaying it in genreTableViewCell.
+    self.genreTableViewCell.textLabel.text=controller.selectedGenre.genre;
+    
+    self.selectedGenre=controller.selectedGenre;
+    [controller.navigationController popViewControllerAnimated:YES];
+    
+    
 }
 
- */
+
 
 - (IBAction)save:(id)sender {
+    //Saving Book Entity's attributes
     [self.currentBook setTitle:self.titleField.text];
     [self.currentBook setAuthor:self.authorField.text];
     [self.currentBook setNotes:self.notesField.text];
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [self.currentBook setDateAdded:[formatter dateFromString:self.dateAddedField.text]];
+    
+    //Saving Genre entity's attribute
+    [self.currentBook setGenre:self.selectedGenre];
     
     [self.delegate bookDetailTVCDelegateSave:self];
      

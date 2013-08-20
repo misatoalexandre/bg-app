@@ -8,16 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "Book.h"
+#import "BookGenreTVC.h"
+#import "Genre.h"
+
+
 @protocol BookDetailTVCDelegate;
 
-@interface BookDetailTVC : UITableViewController
+@interface BookDetailTVC : UITableViewController <BookGenreTVCDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *authorField;
 @property (weak, nonatomic) IBOutlet UITextView *notesField;
 @property (weak, nonatomic) IBOutlet UITextField *dateAddedField;
 
 @property (strong, nonatomic) Book *currentBook;
+@property (strong, nonatomic) Genre *selectedGenre;
 @property (weak, nonatomic) id<BookDetailTVCDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *genreTableViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *CollectionTableViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *readingStatusTableView;
 
 - (IBAction)save:(id)sender;
 @end
