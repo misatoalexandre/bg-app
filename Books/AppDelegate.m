@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BookListTVC.h"
 
 @implementation AppDelegate
 
@@ -16,10 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+   UITabBarController *tabBarController =(UITabBarController *)self.window.rootViewController;
+    UINavigationController *bookListTVCnav=[[tabBarController viewControllers]objectAtIndex:0];
+    
+    BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
+    bltvc.managedObjectContext=self.managedObjectContext;
+    
     return YES;
 }
 
@@ -107,7 +110,10 @@
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          

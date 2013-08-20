@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3389" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Book" representedClassName="Book" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="dateAdded" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="favorite" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Favorite" inverseName="favoriteBooks" inverseEntity="Favorite" syncable="YES"/>
@@ -23,9 +23,9 @@
         <relationship name="statusBooks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="status" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="160" positionY="75" width="128" height="148"/>
-        <element name="Favorite" positionX="369" positionY="102" width="128" height="73"/>
-        <element name="Genre" positionX="369" positionY="189" width="128" height="73"/>
-        <element name="Status" positionX="270" positionY="339" width="128" height="88"/>
+        <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Favorite" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Genre" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
