@@ -10,11 +10,13 @@
 #import "Book.h"
 #import "BookGenreTVC.h"
 #import "Genre.h"
+#import "BookCollectionTVC.h"
+#import "Favorite.h"
 
 
 @protocol BookDetailTVCDelegate;
 
-@interface BookDetailTVC : UITableViewController <BookGenreTVCDelegate>
+@interface BookDetailTVC : UITableViewController <BookGenreTVCDelegate,BookCollectionTVCDelegate >
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *authorField;
 @property (weak, nonatomic) IBOutlet UITextView *notesField;
@@ -22,6 +24,7 @@
 
 @property (strong, nonatomic) Book *currentBook;
 @property (strong, nonatomic) Genre *selectedGenre;
+@property (strong, nonatomic) Favorite *selectedCollection;
 @property (weak, nonatomic) id<BookDetailTVCDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *genreTableViewCell;

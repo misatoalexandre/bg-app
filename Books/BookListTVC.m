@@ -111,9 +111,9 @@
     // Configure the cell...
     Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
-    cell.detailTextLabel.text=book.genre.genre;
-    //NSString *byAuthor=[NSString stringWithFormat:@"by %@", book.author];
-    //cell.detailTextLabel.text=byAuthor;
+    //cell.detailTextLabel.text=book.genre.genre;
+    NSString *byAuthor=[NSString stringWithFormat:@"by %@", book.author];
+    cell.detailTextLabel.text=byAuthor;
     
     return cell;
     
@@ -189,15 +189,18 @@
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
+                                                                   ascending:YES];
+    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                    ascending:YES];
     NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"author"
                                                                       ascending:YES];
     
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,sortDescriptorTwo,nil];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"author" cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"genre.genre" cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     
@@ -224,9 +227,9 @@
             Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
             cell.textLabel.text=changedBook.title;
-            cell.detailTextLabel.text=changedBook.genre.genre;
-            //NSString *byAuthor=[NSString stringWithFormat:@"by %@", changedBook.author];
-            //cell.detailTextLabel.text=byAuthor;
+            //cell.detailTextLabel.text=changedBook.genre.genre;
+            NSString *byAuthor=[NSString stringWithFormat:@"by %@", changedBook.author];
+            cell.detailTextLabel.text=byAuthor;
         }
             
     }

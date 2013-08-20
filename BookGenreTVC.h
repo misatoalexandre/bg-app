@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Genre.h"
+#import "BookGenreDetailTVC.h"
 
 @protocol BookGenreTVCDelegate;
 
 
-@interface  BookGenreTVC : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface  BookGenreTVC : UITableViewController <NSFetchedResultsControllerDelegate,BookGenreDetailTVCDelegate>
 
 @property (strong, nonatomic)NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

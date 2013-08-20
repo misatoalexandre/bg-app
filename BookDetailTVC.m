@@ -56,14 +56,24 @@
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        if ([segue.identifier isEqualToString:@"addGenre"]) {
-            
-            BookGenreTVC *bgtvc=(BookGenreTVC *)[segue destinationViewController];
-            bgtvc.delegate=self;
-            
-            AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
-            bgtvc.managedObjectContext=myApp.managedObjectContext;
-        }
+    AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if ([segue.identifier isEqualToString:@"addGenre"]) {
+        
+        BookGenreTVC *bgtvc=(BookGenreTVC *)[segue destinationViewController];
+        bgtvc.delegate=self;
+        
+        //AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+        bgtvc.managedObjectContext=myApp.managedObjectContext;
+    }
+    
+    if ([segue.identifier isEqualToString:@"addCollection"]) {
+        
+        BookCollectionTVC *bctvc=(BookCollectionTVC *)[segue destinationViewController];
+        bctvc.delegate=self;
+        
+        bctvc.managedObjectContext=myApp.managedObjectContext;
+        
+    }
 }
 -(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller  {
     //Passing the selectedGenre's value to the BookDetailTVC and displaying it in genreTableViewCell.
@@ -71,7 +81,13 @@
     
     self.selectedGenre=controller.selectedGenre;
     [controller.navigationController popViewControllerAnimated:YES];
-    
+}
+
+-(void)collectionWasSelectedOnBookCollectionTVC:(BookCollectionTVC *)controller{
+    //Passign the selectedCollection's value tot the BookDetailTVC and displaying it in generalTableViewCell.
+    self.CollectionTableViewCell.textLabel.text=controller.selectedCollection.favorite;
+    self.selectedCollection=controller.selectedCollection;
+    [controller.navigationController popViewControllerAnimated:YES];
     
 }
 

@@ -1,19 +1,19 @@
 //
-//  BookGenreTVC.m
+//  BookCollectionTVC.m
 //  Books
 //
 //  Created by Misato Tina Alexandre on 8/20/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "BookGenreTVC.h"
-#import "Genre.h"
+#import "BookCollectionTVC.h"
 
-@interface BookGenreTVC ()
+@interface BookCollectionTVC ()
 
 @end
 
-@implementation BookGenreTVC
+@implementation BookCollectionTVC
+
 @synthesize fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -29,35 +29,27 @@
     [super viewWillAppear:YES];
     
     if (![[self.fetchedResultsController fetchedObjects]count] >0) {
-        [self importCoreDataDefaultsGenres];
+        [self importCoreDataDefaultsCollection];
     }else{
-       
+        
     }
 }
--(void) insertGenrewithGenre:(NSString *)genreTitle{
-    Genre *genre=[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
-    genre.genre=genreTitle;
+-(void) insertFavoriteWithCollection:(NSString *)collectionTitle{
+    Favorite *favorite=[NSEntityDescription insertNewObjectForEntityForName:@"Favorite"
+                                               inManagedObjectContext:self.managedObjectContext];
+    favorite.favorite=collectionTitle;
     [self.managedObjectContext save:nil];
 }
--(void)importCoreDataDefaultsGenres{
-    [self insertGenrewithGenre:@"Arts & Entertainment"];
-    [self insertGenrewithGenre:@"Biographies & Memoirs"];
-    [self insertGenrewithGenre:@"Business & Investing"];
-    [self insertGenrewithGenre:@"Children's Books"];
-    [self insertGenrewithGenre:@"Children's Books: Ages 9-12"];
-    [self insertGenrewithGenre:@"Comics & Graphic Novels"];
-    [self insertGenrewithGenre:@"Computers & Technology"];
-    [self insertGenrewithGenre:@"Cooking, Food & Wine"];
-    [self insertGenrewithGenre:@"Education"];
-    [self insertGenrewithGenre:@"Engineering"];
-    [self insertGenrewithGenre:@"Fiction & Literature"];
-    [self insertGenrewithGenre:@"Health, Mind & Body"];
-    [self insertGenrewithGenre:@"History"];
-    [self insertGenrewithGenre:@"Home & Garden"];
-    [self insertGenrewithGenre:@"Law"];
- 
+-(void)importCoreDataDefaultsCollection{
+    [self insertFavoriteWithCollection:@"Best Books of The Year"];
+    [self insertFavoriteWithCollection:@"Must Read"];
+    [self insertFavoriteWithCollection:@"Timeless Classic"];
+    [self insertFavoriteWithCollection:@"All time favorites"];
+    [self insertFavoriteWithCollection:@"Recommended"];
+    
+    
 }
- 
+
 
 - (void)viewDidLoad
 {
@@ -65,13 +57,13 @@
     NSError *error=nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"Error %@", error);
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Genre failed" message:@"Genre page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Collection failed" message:@"Collection page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -82,10 +74,10 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark-Prepare for segue
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+/*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
     bgdtvc.delegate=self;
-
+    
     if ([segue.identifier isEqualToString:@"addGenre"]) {
         Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
         bgdtvc.currentGenre=newGenre;
@@ -94,15 +86,15 @@
         Genre *selectedGenre=(Genre *)[self.fetchedResultsController objectAtIndexPath:indexPath];
         bgdtvc.currentGenre=selectedGenre;
     }
-}
--(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
+}*/
+/*-(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
     NSError *error=nil;
-   // NSManagedObjectContext *context=self.managedObjectContext;
+    // NSManagedObjectContext *context=self.managedObjectContext;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
     [controller.navigationController popViewControllerAnimated:YES];
-}
+}*/
 
 
 #pragma mark - Table view data source
@@ -125,8 +117,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=genre.genre;
+    Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text=favorite.favorite;
     
     return cell;
     
@@ -136,17 +128,17 @@
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.selectedGenre=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.delegate genreWasSelectedOnBookGenreTVC:self];
+    self.selectedCollection=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.delegate collectionWasSelectedOnBookCollectionTVC:self];
 }
 
 
-// Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
+/*// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}*/
 
 
 
@@ -156,8 +148,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context=self.managedObjectContext;
-        Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [context deleteObject:genre];
+        Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:favorite];
         
         NSError *error=nil;
         if (![context save:&error]) {
@@ -202,11 +194,11 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Genre"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Favorite"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"genre"
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"favorite"
                                                                    ascending:YES];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
@@ -236,9 +228,9 @@
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:{
-            Genre *changedGenre=[self.fetchedResultsController objectAtIndexPath:indexPath];
+            Favorite *changedFavorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text=changedGenre.genre;
+            cell.textLabel.text=changedFavorite.favorite;
         }
             
     }
