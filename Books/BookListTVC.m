@@ -72,6 +72,7 @@
         
         Book *newBook=(Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
         bdtvc.currentBook=newBook;
+        bdtvc.title=@"Add a Book";
     }
         
    
@@ -108,6 +109,7 @@
     
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
 
