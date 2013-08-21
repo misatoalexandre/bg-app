@@ -16,4 +16,9 @@
 @dynamic updateDate;
 @dynamic statusBooks;
 
+
+-(void)awakeFromInsert{
+    [super awakeFromInsert];
+    self.readingStatus=@"Reading Status";
+}
 @end

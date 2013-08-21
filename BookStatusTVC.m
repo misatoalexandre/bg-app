@@ -1,19 +1,19 @@
 //
-//  BookListTVC.m
+//  BookStatusTVC.m
 //  Books
 //
-//  Created by Misato Tina Alexandre on 8/19/13.
+//  Created by Misato Tina Alexandre on 8/21/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "BookListTVC.h"
-#import "Book.h"
+#import "BookStatusTVC.h"
 
-@interface BookListTVC ()
+@interface BookStatusTVC ()
 
 @end
 
-@implementation BookListTVC
+@implementation BookStatusTVC
+
 @synthesize fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -24,70 +24,52 @@
     }
     return self;
 }
+#pragma mark-Default value setting
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    if (![[self.fetchedResultsController fetchedObjects]count] >0) {
+        [self importCoreDataDefaultsCollection];
+    }else{
+        
+    }
+}
+-(void) insertStatusWithStatus:(NSString *)statusTitle{
+    Status *status=[NSEntityDescription insertNewObjectForEntityForName:@"Status"
+                                                     inManagedObjectContext:self.managedObjectContext];
+    status.readingStatus=statusTitle;
+    [self.managedObjectContext save:nil];
+}
+-(void)importCoreDataDefaultsCollection{
+    [self insertStatusWithStatus:@"Read"];
+    [self insertStatusWithStatus:@"Currently reading"];
+    [self insertStatusWithStatus:@"Wish to read"];
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //Perform fetch
     NSError *error=nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"Error %@", error);
-        abort() ;
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Stats failed" message:@"Status page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark-BookDetailTVCDelegate Section
--(void)bookDetailTVCDelegateSave:(BookDetailTVC *)controller{
-    NSError *error=nil;
-    NSManagedObjectContext *context=self.managedObjectContext;
-    
-    if (![context save:&error]) {
-        NSLog(@"Error %@",error);
-    }
-    //[self dismissViewControllerAnimated:YES completion:nil];
-[controller.navigationController popViewControllerAnimated:YES]; 
 
-}
-
-#pragma mark-prepare for segue
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    BookDetailTVC *bdtvc=(BookDetailTVC *)[segue destinationViewController];
-    bdtvc.delegate=self;
-   
-    if ([segue.identifier isEqualToString:@"addBook"]) {
-        
-        
-        Book *newBook=(Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
-        bdtvc.currentBook=newBook;
-        bdtvc.title=@"Add a Book";
-    }else{
-      
-        NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
-        Book *selectedBook=(Book *)[self.fetchedResultsController objectAtIndexPath:IndexPath];
-        bdtvc.currentBook=selectedBook;
-        
-        bdtvc.title=@"Book Details";
-        
-        
-    }
-    
-   
-    
-    
-}
 
 #pragma mark - Table view data source
 
@@ -109,11 +91,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=book.title;
-    //cell.detailTextLabel.text=book.genre.genre;
-    NSString *byAuthorAndStatus=[NSString stringWithFormat:@"by %@ %@", book.author,book.status.readingStatus];
-    cell.detailTextLabel.text=byAuthorAndStatus;
+    Status *status=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text=status.readingStatus;
     
     return cell;
     
@@ -122,25 +101,31 @@
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.selectedStatus=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.delegate statusWasSelectedOnBookStatusnTVC:self];
+    
+    if ([self.selectedStatus.readingStatus isEqualToString:@"Read"]) {
+        self.selectedStatus.updateDate=[NSDate date];
+       NSString *message=[NSString stringWithFormat:@"on %@", self.selectedStatus.updateDate];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Read this book" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+   
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
 }
-*/
 
 
 // Override to support editing the table view.
+/*
+ //Don't allow user to edit the list of status.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context=self.managedObjectContext;
-        Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [context deleteObject:book];
+        Status *status=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:status];
         
         NSError *error=nil;
         if (![context save:&error]) {
@@ -149,34 +134,34 @@
     }
     
 }
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
 */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-#pragma mark - Navigation
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+/*
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 #pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
@@ -185,22 +170,19 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Status"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"readingStatus"
                                                                    ascending:YES];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"updateDate"
                                                                    ascending:YES];
-    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"author"
-                                                                      ascending:YES];
-    
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
+
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,sortDescriptorTwo,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"genre.genre" cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     
@@ -224,12 +206,9 @@
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:{
-            Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
+            Status *changedStatus=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text=changedBook.title;
-            //cell.detailTextLabel.text=changedBook.genre.genre;
-            NSString *byAuthor=[NSString stringWithFormat:@"by %@", changedBook.author];
-            cell.detailTextLabel.text=byAuthor;
+            cell.textLabel.text=changedStatus.readingStatus;
         }
             
     }
@@ -246,7 +225,5 @@
             break;
     }
 }
-
-
 
 @end

@@ -72,8 +72,13 @@
         bctvc.delegate=self;
         
         bctvc.managedObjectContext=myApp.managedObjectContext;
-        
     }
+    if ([segue.identifier isEqualToString:@"addStatus"]) {
+        BookStatusTVC *bstvc=(BookStatusTVC *)[segue destinationViewController];
+        bstvc.delegate=self;
+        bstvc.managedObjectContext=myApp.managedObjectContext;
+    }
+    
 }
 -(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller  {
     //Passing the selectedGenre's value to the BookDetailTVC and displaying it in genreTableViewCell.
@@ -84,11 +89,24 @@
 }
 
 -(void)collectionWasSelectedOnBookCollectionTVC:(BookCollectionTVC *)controller{
-    //Passign the selectedCollection's value tot the BookDetailTVC and displaying it in generalTableViewCell.
+    //Passing the selectedCollection's value to the BookDetailTVC and displaying it in collectionlTableViewCell.
     self.CollectionTableViewCell.textLabel.text=controller.selectedCollection.favorite;
     self.selectedCollection=controller.selectedCollection;
     [controller.navigationController popViewControllerAnimated:YES];
+}
+-(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
+    //Passing the selectedStatus's value to the BookDetailTVC and displyaing it in the readingStatusTableView(Cell).
+    self.readingStatusTableView.textLabel.text=controller.selectedStatus.readingStatus;
     
+    if ([controller.selectedStatus.readingStatus isEqualToString:@"Read"]) {
+        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        self.readingStatusTableView.detailTextLabel.text= [formatter stringFromDate:controller.selectedStatus.updateDate];
+    } else{
+        self.readingStatusTableView.detailTextLabel.text=@"";
+    }
+    self.selectedStatus=controller.selectedStatus;
+    [controller.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -104,6 +122,8 @@
     
     //Saving Genre entity's attribute
     [self.currentBook setGenre:self.selectedGenre];
+    [self.currentBook setFavorite:self.selectedCollection];
+    [self.currentBook setStatus:self.selectedStatus];
     
     [self.delegate bookDetailTVCDelegateSave:self];
      
