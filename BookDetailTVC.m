@@ -34,6 +34,10 @@
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     self.dateAddedField.text=[formatter stringFromDate:self.currentBook.dateAdded];
+    self.genreTableViewCell.textLabel.text=self.currentBook.genre.genre;
+    self.CollectionTableViewCell.textLabel.text=self.currentBook.favorite.favorite;
+    self.readingStatusTableView.textLabel.text=self.currentBook.status.readingStatus;
+   // self.readingStatusTableView.detailTextLabel.text=self.currentBook.status.updateDate;
     
 
     // Uncomment the following line to preserve selection between presentations.
@@ -57,6 +61,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
     if ([segue.identifier isEqualToString:@"addGenre"]) {
         
         BookGenreTVC *bgtvc=(BookGenreTVC *)[segue destinationViewController];
@@ -124,6 +129,7 @@
     [self.currentBook setGenre:self.selectedGenre];
     [self.currentBook setFavorite:self.selectedCollection];
     [self.currentBook setStatus:self.selectedStatus];
+    
     
     [self.delegate bookDetailTVCDelegateSave:self];
      

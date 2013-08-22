@@ -76,17 +76,12 @@
     }else{
       
         NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
-        Book *selectedBook=(Book *)[self.fetchedResultsController objectAtIndexPath:IndexPath];
-        bdtvc.currentBook=selectedBook;
+       // Book *selectedBook=(Book *)[self.fetchedResultsController objectAtIndexPath:IndexPath];
+        self.selectedBook=[self.fetchedResultsController objectAtIndexPath:IndexPath];
+        bdtvc.currentBook=self.selectedBook;
         
         bdtvc.title=@"Book Details";
-        
-        
     }
-    
-   
-    
-    
 }
 
 #pragma mark - Table view data source
@@ -109,11 +104,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    /*Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    //NSString *titleGenreCollection=[NSString stringWithFormat:@"%@ %@ %@", book.title, book.genre.genre, book.favorite.favorite];
+   // cell.textLabel.text=titleGenreCollection;
     cell.textLabel.text=book.title;
-    //cell.detailTextLabel.text=book.genre.genre;
     NSString *byAuthorAndStatus=[NSString stringWithFormat:@"by %@ %@", book.author,book.status.readingStatus];
-    cell.detailTextLabel.text=byAuthorAndStatus;
+    cell.detailTextLabel.text=byAuthorAndStatus;*/
+    
+    self.selectedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text=self.selectedBook.title;
+    cell.detailTextLabel.text=self.selectedBook.author;
     
     return cell;
     
@@ -139,9 +139,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context=self.managedObjectContext;
-        Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [context deleteObject:book];
-        
+        //Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        //[context deleteObject:book];
+        self.selectedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:self.selectedBook];
         NSError *error=nil;
         if (![context save:&error]) {
             NSLog(@"Error %@", error);
@@ -190,7 +191,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
-                                                                   ascending:YES];
+                                                                   ascending:NO];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                    ascending:YES];
@@ -200,7 +201,7 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"genre.genre" cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"dateAdded" cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     

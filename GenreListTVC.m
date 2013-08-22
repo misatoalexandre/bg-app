@@ -1,19 +1,19 @@
 //
-//  BookGenreTVC.m
+//  GenreListTVC.m
 //  Books
 //
-//  Created by Misato Tina Alexandre on 8/20/13.
+//  Created by Misato Tina Alexandre on 8/22/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "BookGenreTVC.h"
+#import "GenreListTVC.h"
 #import "Genre.h"
 
-@interface BookGenreTVC ()
+@interface GenreListTVC ()
 
 @end
 
-@implementation BookGenreTVC
+@implementation GenreListTVC
 @synthesize fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -24,50 +24,20 @@
     }
     return self;
 }
-#pragma mark-Default value setting
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-    if (![[self.fetchedResultsController fetchedObjects]count] >0) {
-        [self importCoreDataDefaultsGenres];
-    }else{
-       
+    NSError *error=nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Error %@", error);
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Collection failed" message:@"Collection page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
--(void) insertGenrewithGenre:(NSString *)genreTitle{
-    Genre *genre=[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
-    genre.genre=genreTitle;
-    [self.managedObjectContext save:nil];
-}
--(void)importCoreDataDefaultsGenres{
-    [self insertGenrewithGenre:@"Arts & Entertainment"];
-    [self insertGenrewithGenre:@"Biographies & Memoirs"];
-    [self insertGenrewithGenre:@"Business & Investing"];
-    [self insertGenrewithGenre:@"Children's Books"];
-    [self insertGenrewithGenre:@"Children's Books: Ages 9-12"];
-    [self insertGenrewithGenre:@"Comics & Graphic Novels"];
-    [self insertGenrewithGenre:@"Computers & Technology"];
-    [self insertGenrewithGenre:@"Cooking, Food & Wine"];
-    [self insertGenrewithGenre:@"Education"];
-    [self insertGenrewithGenre:@"Engineering"];
-    [self insertGenrewithGenre:@"Fiction & Literature"];
-    [self insertGenrewithGenre:@"Health, Mind & Body"];
-    [self insertGenrewithGenre:@"History"];
-    [self insertGenrewithGenre:@"Home & Garden"];
-    [self insertGenrewithGenre:@"Law"];
- 
-}
- 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSError *error=nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"Error %@", error);
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Genre failed" message:@"Genre page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+  
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,28 +51,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark-Prepare for segue
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
-    bgdtvc.delegate=self;
-
-    if ([segue.identifier isEqualToString:@"addGenre"]) {
-        Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
-        bgdtvc.currentGenre=newGenre;
-    }else{
-        NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-        Genre *selectedGenre=(Genre *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        bgdtvc.currentGenre=selectedGenre;
-    }
-}
--(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
-    NSError *error=nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error in saving new genre. %@", error);
-    }
-    [controller.navigationController popViewControllerAnimated:YES];
-}
-
 
 #pragma mark - Table view data source
 
@@ -126,7 +74,6 @@
     // Configure the cell...
     Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=genre.genre;
-    
     return cell;
     
 }
@@ -134,22 +81,15 @@
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.selectedGenre=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.delegate genreWasSelectedOnBookGenreTVC:self];
-}
-
-
-// Override to support conditional editing of the table view.
+/*
+ // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
  return YES;
  }
+ */
 
-
-
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -162,38 +102,21 @@
         if (![context save:&error]) {
             NSLog(@"Error %@", error);
         }
+        
     }
     
 }
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
 
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- 
- */
 #pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController!=nil) {
@@ -254,5 +177,10 @@
             break;
     }
 }
+
+
+
+
+
 
 @end

@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "BookListTVC.h"
+#import "CollectionListTVC.h"
+#import "GenreListTVC.h"
+
 
 @implementation AppDelegate
 
@@ -19,9 +22,18 @@
 {
    UITabBarController *tabBarController =(UITabBarController *)self.window.rootViewController;
     UINavigationController *bookListTVCnav=[[tabBarController viewControllers]objectAtIndex:0];
+    UINavigationController *collectionListTVCnav=[[tabBarController viewControllers]objectAtIndex:1];
+    UINavigationController *genreListTVCnav=[[tabBarController viewControllers]objectAtIndex:2];
     
     BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
     bltvc.managedObjectContext=self.managedObjectContext;
+    
+    CollectionListTVC *cltvc=[[collectionListTVCnav viewControllers]objectAtIndex:0];
+    cltvc.managedObjectContext=self.managedObjectContext;
+    
+    GenreListTVC *gltvc=[[genreListTVCnav viewControllers]objectAtIndex:0];
+    gltvc.managedObjectContext=self.managedObjectContext;
+    
     
     return YES;
 }
