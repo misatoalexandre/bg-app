@@ -7,7 +7,8 @@
 //
 
 #import "CollectionListTVC.h"
-#import "DisplayCollectionTVC.h"
+
+#import "AppDelegate.h"
 
 @interface CollectionListTVC ()
 
@@ -74,14 +75,7 @@
         
         Favorite *newFavorite=(Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
         nctvc.currentFavorite=newFavorite;
-    } else{
-        DisplayCollectionTVC *dctvc=(DisplayCollectionTVC *)[segue destinationViewController];
-        NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-        Favorite *selectedFavorite=(Favorite *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        dctvc.selectedFavorite=selectedFavorite;
-        dctvc.title=selectedFavorite.favorite;
-    }
-}
+    } }
 
 
 #pragma mark - Table view data source

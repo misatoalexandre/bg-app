@@ -1,19 +1,20 @@
 //
-//  BooksByCollectionTVC.m
+//  BooksByGenreTVC.m
 //  Books
 //
 //  Created by Misato Tina Alexandre on 8/22/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "BooksByCollectionTVC.h"
+#import "BooksByGenreTVC.h"
 
-@interface BooksByCollectionTVC ()
+@interface BooksByGenreTVC ()
 
 @end
 
-@implementation BooksByCollectionTVC
-//@synthesize fetchedResultsController=_fetchedResultsController;
+@implementation BooksByGenreTVC
+
+@synthesize fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -23,14 +24,24 @@
     }
     return self;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    NSError *error=nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Error %@", error);
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on BooksByGenre Failed" message:@"BooksByGenreTVC did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -40,21 +51,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return [[self.fetchedResultsController sections]count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+{    // Return the number of rows in the section.
+    id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
+    return [secInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,62 +71,44 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    
+    Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text=book.title;
+
     return cell;
+    
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
-*/
-
 /*
-// Override to support editing the table view.
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        NSManagedObjectContext *context=self.managedObjectContext;
+        Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:book];
+        
+        NSError *error=nil;
+        if (![context save:&error]) {
+            NSLog(@"Error %@", error);
+        }
+        
+    }
+    
 }
 
- */
 
-/*#pragma mark-Fetched Results Controller Section
+#pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController!=nil) {
         return _fetchedResultsController;
@@ -128,19 +118,19 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
-                                                                      ascending:NO];
+    NSString *currentGenre=self.selectedGenre.genre;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"genre.genre== %@", currentGenre];
+
+    [fetchRequest setPredicate:predicate];
+
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                    ascending:YES];
-    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"author"
-                                                                      ascending:YES];
     
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"dateAdded" cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     
@@ -167,9 +157,6 @@
             Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
             cell.textLabel.text=changedBook.title;
-            //cell.detailTextLabel.text=changedBook.genre.genre;
-            NSString *byAuthor=[NSString stringWithFormat:@"by %@", changedBook.author];
-            cell.detailTextLabel.text=byAuthor;
         }
             
     }
@@ -187,7 +174,9 @@
     }
 }
 
-*/
+
+
+
+
 
 @end
-

@@ -1,5 +1,5 @@
 //
-//  GenreListTVC.h
+//  BooksByGenreTVC.h
 //  Books
 //
 //  Created by Misato Tina Alexandre on 8/22/13.
@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NewGenreTVC.h"
+#import "Book.h"
+#import "Genre.h"
 
-
-@interface GenreListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewGenreTVCDelegate>
+@interface BooksByGenreTVC : UITableViewController<NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) Genre *selectedGenre;
