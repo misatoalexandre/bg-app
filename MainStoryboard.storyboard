@@ -578,10 +578,10 @@
             </objects>
             <point key="canvasLocation" x="1202" y="516"/>
         </scene>
-        <!--Table View Controller - Add Your Genre-->
+        <!--New GenreTVC - Add Your Genre-->
         <scene sceneID="Sk9-hP-2sE">
             <objects>
-                <tableViewController id="3Pp-PU-fSS" sceneMemberID="viewController">
+                <tableViewController id="3Pp-PU-fSS" customClass="NewGenreTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="H2R-aR-sRH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -614,8 +614,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Your Genre" id="CUw-kT-0dw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FGP-pz-nnk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FGP-pz-nnk">
+                            <connections>
+                                <action selector="save:" destination="3Pp-PU-fSS" id="ieK-Zw-wlc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="genreField" destination="RQ8-05-dYP" id="cl0-dj-SsA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8g-Id-jvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

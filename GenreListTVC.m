@@ -51,6 +51,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark-NewGenreTVCDelegate Method
+-(void) newGenreTVCSave:(NewGenreTVC *)controller{
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error in saving new genre. %@", error);
+    }
+    
+    [controller.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark - Navigation : prepare for segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"newGenre"]) {
+        NewGenreTVC *ngtvc=(NewGenreTVC *)[segue destinationViewController];
+        ngtvc.delegate=self;
+        
+        Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
+        ngtvc.currentGenre=newGenre;
+    }
+    
+}
 
 #pragma mark - Table view data source
 
@@ -106,15 +128,6 @@
     }
     
 }
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
 
 
 #pragma mark-Fetched Results Controller Section

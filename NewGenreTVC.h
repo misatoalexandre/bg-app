@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Genre.h"
+
+@protocol NewGenreTVCDelegate;
 
 @interface NewGenreTVC : UITableViewController
 
+
+@property (weak, nonatomic) IBOutlet UITextField *genreField;
+@property (strong, nonatomic) Genre *currentGenre;
+@property (weak, nonatomic) id<NewGenreTVCDelegate> delegate;
+
+- (IBAction)save:(id)sender;
+
+@end
+
+@protocol NewGenreTVCDelegate
+-(void) newGenreTVCSave:(NewGenreTVC *)controller;
 @end

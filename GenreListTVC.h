@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewGenreTVC.h"
 
-@interface GenreListTVC : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface GenreListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewGenreTVCDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @end
