@@ -567,12 +567,59 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Genre" id="Z9E-0L-zRp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9zY-B4-AQN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9zY-B4-AQN">
+                            <connections>
+                                <segue destination="3Pp-PU-fSS" kind="push" identifier="newGenre" id="Erb-ze-TVS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZE-kr-rdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1202" y="516"/>
+        </scene>
+        <!--Table View Controller - Add Your Genre-->
+        <scene sceneID="Sk9-hP-2sE">
+            <objects>
+                <tableViewController id="3Pp-PU-fSS" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="H2R-aR-sRH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Genre (Category) Title" id="13e-QC-Y6O">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xbu-bD-lUq">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="xbu-bD-lUq" id="OKg-zC-0hd">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RQ8-05-dYP">
+                                                    <rect key="frame" x="10" y="7" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="3Pp-PU-fSS" id="41P-9l-oBP"/>
+                            <outlet property="delegate" destination="3Pp-PU-fSS" id="cmw-sS-Ld2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Your Genre" id="CUw-kT-0dw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FGP-pz-nnk"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W8g-Id-jvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1613" y="520"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="zjt-zK-dqR">

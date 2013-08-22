@@ -28,6 +28,7 @@
 		538922F217C5603F00EFFC7F /* CollectionListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 538922F117C5603F00EFFC7F /* CollectionListTVC.m */; };
 		5389230017C65B1E00EFFC7F /* GenreListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 538922FF17C65B1E00EFFC7F /* GenreListTVC.m */; };
 		5389230317C66ADE00EFFC7F /* NewCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389230217C66ADE00EFFC7F /* NewCollectionTVC.m */; };
+		5389230617C671A600EFFC7F /* NewGenreTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389230517C671A600EFFC7F /* NewGenreTVC.m */; };
 		539AA67317C2AE6E004C33F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67217C2AE6E004C33F4 /* Foundation.framework */; };
 		539AA67517C2AE6E004C33F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */; };
 		539AA67717C2AE6E004C33F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67617C2AE6E004C33F4 /* UIKit.framework */; };
@@ -91,6 +92,8 @@
 		538922FF17C65B1E00EFFC7F /* GenreListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenreListTVC.m; sourceTree = "<group>"; };
 		5389230117C66ADE00EFFC7F /* NewCollectionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCollectionTVC.h; sourceTree = "<group>"; };
 		5389230217C66ADE00EFFC7F /* NewCollectionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCollectionTVC.m; sourceTree = "<group>"; };
+		5389230417C671A600EFFC7F /* NewGenreTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGenreTVC.h; sourceTree = "<group>"; };
+		5389230517C671A600EFFC7F /* NewGenreTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGenreTVC.m; sourceTree = "<group>"; };
 		539AA66F17C2AE6E004C33F4 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539AA67217C2AE6E004C33F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -187,6 +190,8 @@
 			children = (
 				538922FE17C65B1E00EFFC7F /* GenreListTVC.h */,
 				538922FF17C65B1E00EFFC7F /* GenreListTVC.m */,
+				5389230417C671A600EFFC7F /* NewGenreTVC.h */,
+				5389230517C671A600EFFC7F /* NewGenreTVC.m */,
 			);
 			name = Genre;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				539AA68517C2AE6E004C33F4 /* AppDelegate.m in Sources */,
 				538922DE17C3D54500EFFC7F /* BookCollectionTVC.m in Sources */,
 				538922E117C51B3200EFFC7F /* BookStatusTVC.m in Sources */,
+				5389230617C671A600EFFC7F /* NewGenreTVC.m in Sources */,
 				5389227C17C2C6CB00EFFC7F /* Favorite.m in Sources */,
 				5389228217C2C6CB00EFFC7F /* Genre.m in Sources */,
 				538922DB17C3C7FF00EFFC7F /* BookGenreDetailTVC.m in Sources */,
