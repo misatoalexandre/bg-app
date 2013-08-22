@@ -1,20 +1,19 @@
 //
-//  CollectionListTVC.m
+//  BooksByCollectionTVC.m
 //  Books
 //
-//  Created by Misato Tina Alexandre on 8/21/13.
+//  Created by Misato Tina Alexandre on 8/22/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "CollectionListTVC.h"
-#import "DisplayCollectionTVC.h"
+#import "BooksByCollectionTVC.h"
 
-@interface CollectionListTVC ()
+@interface BooksByCollectionTVC ()
 
 @end
 
-@implementation CollectionListTVC
-@synthesize fetchedResultsController=_fetchedResultsController;
+@implementation BooksByCollectionTVC
+//@synthesize fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -28,21 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
-        [super viewDidLoad];
-        NSError *error=nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
-            NSLog(@"Error %@", error);
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Collection failed" message:@"Collection page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    
-        // Uncomment the following line to preserve selection between presentations.
-        // self.clearsSelectionOnViewWillAppear = NO;
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -56,63 +40,33 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark- newCollectionTVCDelegate method
--(void)newCollectionTVCSave:(NewCollectionTVC *)controller{
-    NSError *error=nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error in saving new genre. %@", error);
-    }
-
-    [controller.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark-prepare for segue
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"newCollection"]) {
-        NewCollectionTVC *nctvc=(NewCollectionTVC *)[segue destinationViewController];
-        nctvc.delegate=self;
-        
-        Favorite *newFavorite=(Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
-        nctvc.currentFavorite=newFavorite;
-    } else{
-        DisplayCollectionTVC *dctvc=(DisplayCollectionTVC *)[segue destinationViewController];
-        NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-        Favorite *selectedFavorite=(Favorite *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        dctvc.selectedFavorite=selectedFavorite;
-        dctvc.title=selectedFavorite.favorite;
-    }
-}
-
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return [[self.fetchedResultsController sections]count];
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{    // Return the number of rows in the section.
-    id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
-    return [secInfo numberOfObjects];
+{
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"collectionCell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=favorite.favorite;
+    
     return cell;
-    
 }
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
-    return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
-}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,22 +76,19 @@
 }
 */
 
+/*
+// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        NSManagedObjectContext *context=self.managedObjectContext;
-        Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [context deleteObject:favorite];
-        
-        NSError *error=nil;
-        if (![context save:&error]) {
-            NSLog(@"Error %@", error);
-        }
-        
-    }
-    
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
 }
+*/
 
 /*
 // Override to support rearranging the table view.
@@ -166,24 +117,30 @@
 }
 
  */
-#pragma mark-Fetched Results Controller Section
+
+/*#pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController!=nil) {
         return _fetchedResultsController;
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Favorite"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"favorite"
-                                                                   ascending:YES];
+    NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
+                                                                      ascending:NO];
     
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                   ascending:YES];
+    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"author"
+                                                                      ascending:YES];
+    
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"dateAdded" cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     
@@ -207,9 +164,12 @@
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:{
-            Favorite *changedFavorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
+            Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text=changedFavorite.favorite;
+            cell.textLabel.text=changedBook.title;
+            //cell.detailTextLabel.text=changedBook.genre.genre;
+            NSString *byAuthor=[NSString stringWithFormat:@"by %@", changedBook.author];
+            cell.detailTextLabel.text=byAuthor;
         }
             
     }
@@ -227,6 +187,7 @@
     }
 }
 
-
+*/
 
 @end
+
