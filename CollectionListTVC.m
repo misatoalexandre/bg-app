@@ -8,6 +8,7 @@
 
 #import "CollectionListTVC.h"
 
+
 @interface CollectionListTVC ()
 
 @end
@@ -55,6 +56,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark- newCollectionTVCDelegate method
+-(void)newCollectionTVCSave:(NewCollectionTVC *)controller{
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error in saving new genre. %@", error);
+    }
+
+    [controller.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark-prepare for segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"newCollection"]) {
+        NewCollectionTVC *nctvc=(NewCollectionTVC *)[segue destinationViewController];
+        nctvc.delegate=self;
+        
+        Favorite *newFavorite=(Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
+        nctvc.currentFavorite=newFavorite;
+    }
+}
+
 
 #pragma mark - Table view data source
 

@@ -83,17 +83,18 @@
 }
 #pragma mark-Prepare for segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
-    bgdtvc.delegate=self;
+   
 
     if ([segue.identifier isEqualToString:@"addGenre"]) {
+        BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
+        bgdtvc.delegate=self;
         Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
         bgdtvc.currentGenre=newGenre;
-    }else{
+    }/*else{
         NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
         Genre *selectedGenre=(Genre *)[self.fetchedResultsController objectAtIndexPath:indexPath];
         bgdtvc.currentGenre=selectedGenre;
-    }
+    }*/
 }
 -(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
     NSError *error=nil;

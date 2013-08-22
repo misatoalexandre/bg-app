@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Favorite.h"
+#import "NewCollectionTVC.h"
 
 
-@interface CollectionListTVC : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface CollectionListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewCollectionTVCDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

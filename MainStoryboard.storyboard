@@ -57,12 +57,66 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Collections" id="IG8-6C-505">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Yn7-Vp-TWH"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Yn7-Vp-TWH">
+                            <connections>
+                                <segue destination="jAG-bb-GDC" kind="push" identifier="newCollection" id="Lw3-ol-q8h"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfT-7a-XKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1192" y="-177"/>
+        </scene>
+        <!--New CollectionTVC - Add Your Collection-->
+        <scene sceneID="fAL-HX-20L">
+            <objects>
+                <tableViewController id="jAG-bb-GDC" customClass="NewCollectionTVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Ulh-JF-cMv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Collection Title" id="zF1-pm-ceK">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5qB-XF-bIT">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="5qB-XF-bIT" id="tuW-yX-czK">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S2O-Lu-Zkp">
+                                                    <rect key="frame" x="10" y="7" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="jAG-bb-GDC" id="Lm0-GT-Xqm"/>
+                            <outlet property="delegate" destination="jAG-bb-GDC" id="EAF-2q-0NI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Your Collection" id="5hi-Ok-bjw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="4hM-2V-XcU">
+                            <connections>
+                                <action selector="save:" destination="jAG-bb-GDC" id="KAO-8G-hyW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionField" destination="S2O-Lu-Zkp" id="PEX-GK-MPW"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WUx-7e-857" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1619" y="-177"/>
         </scene>
         <!--Book CollectionTVC - Collection-->
         <scene sceneID="TAx-Oy-amj">
@@ -513,7 +567,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Genre" id="Z9E-0L-zRp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="9zY-B4-AQN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9zY-B4-AQN"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZE-kr-rdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
