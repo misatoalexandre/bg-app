@@ -61,6 +61,7 @@
     if ([segue.identifier isEqualToString:@"editGenre"]) {
         EditGenreVC *egvc=(EditGenreVC *)[segue destinationViewController];
         egvc.selectedGenre=self.selectedGenre;
+        sender=self;
     } 
 }
 #pragma mark - Table view data source

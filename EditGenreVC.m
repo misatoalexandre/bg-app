@@ -31,6 +31,7 @@
     [super viewDidLoad];
     self.saveBtn.hidden=YES;
     [self.genreField setUserInteractionEnabled:NO];
+    
     self.genreField.text=self.selectedGenre.genre;
     
 	// Do any additional setup after loading the view.

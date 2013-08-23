@@ -31,8 +31,9 @@
 		5389230617C671A600EFFC7F /* NewGenreTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389230517C671A600EFFC7F /* NewGenreTVC.m */; };
 		5389230D17C67BA700EFFC7F /* edit-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 5389230C17C67BA700EFFC7F /* edit-25.png */; };
 		5389231317C6B71D00EFFC7F /* BooksByGenreTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389231217C6B71D00EFFC7F /* BooksByGenreTVC.m */; };
-		5389231617C6BEBA00EFFC7F /* EditGenreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389231517C6BEBA00EFFC7F /* EditGenreVC.m */; };
 		5389231F17C7B02100EFFC7F /* BooksByCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389231E17C7B02100EFFC7F /* BooksByCollectionTVC.m */; };
+		5389232817C7CD3100EFFC7F /* EditGenreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232717C7CD3100EFFC7F /* EditGenreVC.m */; };
+		5389232E17C7D58600EFFC7F /* EditCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */; };
 		539AA67317C2AE6E004C33F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67217C2AE6E004C33F4 /* Foundation.framework */; };
 		539AA67517C2AE6E004C33F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */; };
 		539AA67717C2AE6E004C33F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67617C2AE6E004C33F4 /* UIKit.framework */; };
@@ -101,10 +102,12 @@
 		5389230C17C67BA700EFFC7F /* edit-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-25.png"; sourceTree = "<group>"; };
 		5389231117C6B71D00EFFC7F /* BooksByGenreTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksByGenreTVC.h; sourceTree = "<group>"; };
 		5389231217C6B71D00EFFC7F /* BooksByGenreTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksByGenreTVC.m; sourceTree = "<group>"; };
-		5389231417C6BEBA00EFFC7F /* EditGenreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditGenreVC.h; sourceTree = "<group>"; };
-		5389231517C6BEBA00EFFC7F /* EditGenreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditGenreVC.m; sourceTree = "<group>"; };
 		5389231D17C7B02100EFFC7F /* BooksByCollectionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksByCollectionTVC.h; sourceTree = "<group>"; };
 		5389231E17C7B02100EFFC7F /* BooksByCollectionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksByCollectionTVC.m; sourceTree = "<group>"; };
+		5389232617C7CD3100EFFC7F /* EditGenreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditGenreVC.h; sourceTree = "<group>"; };
+		5389232717C7CD3100EFFC7F /* EditGenreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditGenreVC.m; sourceTree = "<group>"; };
+		5389232C17C7D58600EFFC7F /* EditCollectionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCollectionTVC.h; sourceTree = "<group>"; };
+		5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCollectionTVC.m; sourceTree = "<group>"; };
 		539AA66F17C2AE6E004C33F4 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539AA67217C2AE6E004C33F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -194,6 +197,8 @@
 				5389230217C66ADE00EFFC7F /* NewCollectionTVC.m */,
 				5389231D17C7B02100EFFC7F /* BooksByCollectionTVC.h */,
 				5389231E17C7B02100EFFC7F /* BooksByCollectionTVC.m */,
+				5389232C17C7D58600EFFC7F /* EditCollectionTVC.h */,
+				5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */,
 			);
 			name = "Collection List";
 			sourceTree = "<group>";
@@ -207,8 +212,8 @@
 				5389230517C671A600EFFC7F /* NewGenreTVC.m */,
 				5389231117C6B71D00EFFC7F /* BooksByGenreTVC.h */,
 				5389231217C6B71D00EFFC7F /* BooksByGenreTVC.m */,
-				5389231417C6BEBA00EFFC7F /* EditGenreVC.h */,
-				5389231517C6BEBA00EFFC7F /* EditGenreVC.m */,
+				5389232617C7CD3100EFFC7F /* EditGenreVC.h */,
+				5389232717C7CD3100EFFC7F /* EditGenreVC.m */,
 			);
 			name = Genre;
 			sourceTree = "<group>";
@@ -405,12 +410,14 @@
 			files = (
 				5389230317C66ADE00EFFC7F /* NewCollectionTVC.m in Sources */,
 				538922D417C30C8700EFFC7F /* BookDetailTVC.m in Sources */,
+				5389232817C7CD3100EFFC7F /* EditGenreVC.m in Sources */,
 				539AA68517C2AE6E004C33F4 /* AppDelegate.m in Sources */,
 				538922DE17C3D54500EFFC7F /* BookCollectionTVC.m in Sources */,
 				5389231F17C7B02100EFFC7F /* BooksByCollectionTVC.m in Sources */,
 				538922E117C51B3200EFFC7F /* BookStatusTVC.m in Sources */,
 				5389230617C671A600EFFC7F /* NewGenreTVC.m in Sources */,
 				5389227C17C2C6CB00EFFC7F /* Favorite.m in Sources */,
+				5389232E17C7D58600EFFC7F /* EditCollectionTVC.m in Sources */,
 				5389231317C6B71D00EFFC7F /* BooksByGenreTVC.m in Sources */,
 				5389228217C2C6CB00EFFC7F /* Genre.m in Sources */,
 				538922DB17C3C7FF00EFFC7F /* BookGenreDetailTVC.m in Sources */,
@@ -418,7 +425,6 @@
 				5389230017C65B1E00EFFC7F /* GenreListTVC.m in Sources */,
 				5389228D17C2C78E00EFFC7F /* BookListTVC.m in Sources */,
 				538922D817C328CA00EFFC7F /* BookGenreTVC.m in Sources */,
-				5389231617C6BEBA00EFFC7F /* EditGenreVC.m in Sources */,
 				539AA68117C2AE6E004C33F4 /* main.m in Sources */,
 				5389228817C2C6F700EFFC7F /* Book.m in Sources */,
 				5389228517C2C6CB00EFFC7F /* Status.m in Sources */,

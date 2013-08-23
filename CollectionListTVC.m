@@ -185,10 +185,13 @@
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"favorite"
+    //NSSortDescriptor *sortDescriptorOne = [[NSSortDescriptor alloc] initWithKey:@"favorite."
+                                                                  // ascending:YES];
+
+    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"favorite"
                                                                    ascending:YES];
     
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorTwo, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
