@@ -110,7 +110,18 @@
     
     // Configure the cell...
     Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=genre.genre;
+    cell.detailTextLabel.text=genre.genre;
+    
+    unsigned int bookCount=[genre.genreBooks count];
+    
+    if (bookCount > 1 ) {
+        NSString *bookCountDisplay=[NSString stringWithFormat:@"%d books", bookCount];
+        cell.textLabel.text=bookCountDisplay;
+    } else{
+        NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
+        cell.textLabel.text=noBookCountDisplay;
+    }
+
     return cell;
     
 }

@@ -112,7 +112,18 @@
     
     // Configure the cell...
     Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=favorite.favorite;
+    cell.detailTextLabel.text=favorite.favorite;
+    
+    unsigned int bookCount=[favorite.favoriteBooks count];
+    
+    if (bookCount > 1 ) {
+        NSString *bookCountDisplay=[NSString stringWithFormat:@"%d books", bookCount];
+        cell.textLabel.text=bookCountDisplay;
+    } else{
+        NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
+        cell.textLabel.text=noBookCountDisplay;
+    }
+    
     return cell;
     
 }
