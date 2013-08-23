@@ -7,14 +7,20 @@
 //
 
 #import "BooksByGenreTVC.h"
+#import "EditGenreVC.h"
+#import "BooksByGenreTVC.h"
+#import "AppDelegate.h"
 
-@interface BooksByGenreTVC ()
+@interface BooksByGenreTVC (){
+    //unsigned int count;
+}
 
 @end
 
 @implementation BooksByGenreTVC
 
 @synthesize fetchedResultsController=_fetchedResultsController;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,6 +57,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"editGenre"]) {
+        EditGenreVC *egvc=(EditGenreVC *)[segue destinationViewController];
+        egvc.selectedGenre=self.selectedGenre;
+    } 
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -73,6 +85,7 @@
     // Configure the cell...
     Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
+    cell.detailTextLabel.text=book.author;
 
     return cell;
     
@@ -157,6 +170,7 @@
             Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
             cell.textLabel.text=changedBook.title;
+            cell.detailTextLabel.text=changedBook.author;
         }
             
     }

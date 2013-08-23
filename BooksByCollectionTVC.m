@@ -1,22 +1,19 @@
 //
-//  CollectionListTVC.m
+//  BooksByCollectionTVC.m
 //  Books
 //
-//  Created by Misato Tina Alexandre on 8/21/13.
+//  Created by Misato Tina Alexandre on 8/23/13.
 //  Copyright (c) 2013 Misato Tina Alexandre. All rights reserved.
 //
 
-#import "CollectionListTVC.h"
-#import "AppDelegate.h"
 #import "BooksByCollectionTVC.h"
+#import "Book.h"
 
-
-@interface CollectionListTVC ()
+@interface BooksByCollectionTVC ()
 
 @end
 
-@implementation CollectionListTVC
-@synthesize fetchedResultsController=_fetchedResultsController;
+@implementation BooksByCollectionTVC
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,27 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
-        [super viewDidLoad];
-        NSError *error=nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
-            NSLog(@"Error %@", error);
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"ViewDidLoad on Collection failed" message:@"Collection page did not load" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    
-        // Uncomment the following line to preserve selection between presentations.
-        // self.clearsSelectionOnViewWillAppear = NO;
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //Perform fetch
+    NSError *error=nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Error %@", error);
+        abort() ;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,37 +48,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark- newCollectionTVCDelegate method
--(void)newCollectionTVCSave:(NewCollectionTVC *)controller{
-    NSError *error=nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error in saving new genre. %@", error);
-    }
-
-    [controller.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark-prepare for segue
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"newCollection"]) {
-        NewCollectionTVC *nctvc=(NewCollectionTVC *)[segue destinationViewController];
-        nctvc.delegate=self;
-        
-        Favorite *newFavorite=(Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
-        nctvc.currentFavorite=newFavorite;
-    }
-    if ([segue.identifier isEqualToString:@"booksByCollection"]) {
-        BooksByCollectionTVC *bbctvc=(BooksByCollectionTVC *)[segue destinationViewController];
-        AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
-        
-        NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
-        self.selectedCollection=[self.fetchedResultsController objectAtIndexPath:IndexPath];
-        bbctvc.selectedFavorite=self.selectedCollection;
-        bbctvc.managedObjectContext=myApp.managedObjectContext;
-        bbctvc.title=self.selectedCollection.favorite;
-    }
-}
-
 
 
 #pragma mark - Table view data source
@@ -107,12 +66,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"collectionCell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=favorite.favorite;
+    Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text=book.title;
+    cell.detailTextLabel.text=book.author;
+    
     return cell;
     
 }
@@ -121,21 +82,21 @@
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context=self.managedObjectContext;
-        Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [context deleteObject:favorite];
+        Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:book];
         
         NSError *error=nil;
         if (![context save:&error]) {
@@ -146,22 +107,6 @@
     
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
@@ -170,11 +115,16 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Favorite"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
+    NSString *currentFavorite=self.selectedFavorite.favorite;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite.favorite== %@", currentFavorite];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"favorite"
+    [fetchRequest setPredicate:predicate];
+    
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                    ascending:YES];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
@@ -204,9 +154,10 @@
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:{
-            Favorite *changedFavorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
+            Book *changedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
             UITableViewCell *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text=changedFavorite.favorite;
+            cell.textLabel.text=changedBook.title;
+            cell.detailTextLabel.text=changedBook.author;
         }
             
     }
@@ -223,6 +174,10 @@
             break;
     }
 }
+
+
+
+
 
 
 @end

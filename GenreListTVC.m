@@ -11,6 +11,7 @@
 #import "BooksByGenreTVC.h"
 #import "AppDelegate.h"
 
+
 @interface GenreListTVC ()
 
 @end
@@ -72,20 +73,19 @@
         
         Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
         ngtvc.currentGenre=newGenre;
-    } else{
-        if ([segue.identifier isEqualToString:@"booksByGenre"]) {
-            BooksByGenreTVC *bbgtvc=(BooksByGenreTVC *)[segue destinationViewController];
-            AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
-            
-            NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
-            self.selectedGenre=[self.fetchedResultsController objectAtIndexPath:IndexPath];
-            bbgtvc.selectedGenre=self.selectedGenre;
-            bbgtvc.managedObjectContext=myApp.managedObjectContext;
-            bbgtvc.title=self.selectedGenre.genre;
-
-            
-        }
     }
+    if ([segue.identifier isEqualToString:@"books"]) {
+        BooksByGenreTVC *bbgtvc=(BooksByGenreTVC *)[segue destinationViewController];
+        AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+        
+        NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
+        self.selectedGenre=[self.fetchedResultsController objectAtIndexPath:IndexPath];
+        bbgtvc.selectedGenre=self.selectedGenre;
+        bbgtvc.managedObjectContext=myApp.managedObjectContext;
+        bbgtvc.title=self.selectedGenre.genre;
+    }
+    
+    
     
 }
 

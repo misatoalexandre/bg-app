@@ -11,7 +11,10 @@
 #import "Genre.h"
 
 @interface BooksByGenreTVC : UITableViewController<NSFetchedResultsControllerDelegate>
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) Genre *selectedGenre;
+
+
 @end
