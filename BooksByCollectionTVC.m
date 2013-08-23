@@ -10,6 +10,9 @@
 #import "Book.h"
 
 @interface BooksByCollectionTVC ()
+{
+    unsigned int count;
+}
 
 @end
 
@@ -40,7 +43,13 @@
         NSLog(@"Error %@", error);
         abort() ;
     }
-
+    
+    //testing NSSet.
+    unsigned int count=[self.selectedFavorite.favoriteBooks count];
+    NSString *displayCount=[NSString stringWithFormat:@"%d books in this collection", count];
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Book count" message:displayCount delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
 }
 
 - (void)didReceiveMemoryWarning
