@@ -82,6 +82,11 @@
    [self.selectedCollection setFavorite:self.collectionField.text];
     AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
     [myApp saveContext];
+    
+    NSString *newGenre=[NSString stringWithFormat:@"Category name was successfully updated to %@", self.selectedCollection.favorite];
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Collection name updated!" message:newGenre delegate:self  cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+
 
 }
 @end
