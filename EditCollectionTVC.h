@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Favorite.h"
+#import "CollectionListTVC.h"
 
 @interface EditCollectionTVC : UITableViewController
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
+@property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (weak, nonatomic) IBOutlet UITextField *collectionField;
+@property (weak, nonatomic) IBOutlet UITableViewCell *tableViewCell;
+
+@property (strong, nonatomic) Favorite *selectedCollection;
+
+- (IBAction)edit:(id)sender;
+- (IBAction)save:(id)sender;
 
 @end

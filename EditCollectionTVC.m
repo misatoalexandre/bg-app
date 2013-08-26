@@ -7,7 +7,7 @@
 //
 
 #import "EditCollectionTVC.h"
-
+#import "AppDelegate.h"
 @interface EditCollectionTVC ()
 
 @end
@@ -26,6 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.collectionField.text=self.selectedCollection.favorite;
+    self.saveBtn.hidden=YES;
+    [self.collectionField setUserInteractionEnabled:NO];
+    [self.tableViewCell setHighlighted:NO];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -41,18 +45,43 @@
 }
 
 
+- (IBAction)edit:(id)sender {
+    //Button states
+    self.editBtn.hidden=YES;
+    self.editBtn.userInteractionEnabled=NO;
+    self.saveBtn.hidden=NO;
+    self.saveBtn.userInteractionEnabled=YES;
+    
+    //Text field states.
+    self.collectionField.userInteractionEnabled=YES;
+    [self.collectionField setClearButtonMode:UITextFieldViewModeAlways];
+    
+    //Table View Cell State
+    self.tableViewCell.highlighted=YES;
+    
 
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    
 }
 
- */
+- (IBAction)save:(id)sender {
+    //Button States
+    self.editBtn.hidden=NO;
+    self.editBtn.userInteractionEnabled=YES;
+    self.saveBtn.hidden=YES;
+    self.saveBtn.userInteractionEnabled=NO;
+    
+    //Text field states
+    self.collectionField.userInteractionEnabled=NO;
+    [self.collectionField setClearButtonMode:UITextFieldViewModeNever];
+    
+    //Table view cell states
+    self.tableViewCell.highlighted=NO;
+  
+   //save the edited collection.
+   [self.selectedCollection setFavorite:self.collectionField.text];
+    AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [myApp saveContext];
 
+}
 @end

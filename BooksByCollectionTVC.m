@@ -8,6 +8,7 @@
 
 #import "BooksByCollectionTVC.h"
 #import "Book.h"
+#import "EditCollectionTVC.h"
 
 @interface BooksByCollectionTVC ()
 {
@@ -46,10 +47,15 @@
     
     //testing NSSet.
     //Next: declare delegate protocol that CollectionListTVC will implement to pass the value....
-    unsigned int count=[self.selectedFavorite.favoriteBooks count];
+   /* unsigned int count=[self.selectedFavorite.favoriteBooks count];
     NSString *displayCount=[NSString stringWithFormat:@"%d books in this collection", count];
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Book count" message:displayCount delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+    [alert show];*/
+}
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender    {
+   
+    EditCollectionTVC *ectvc=(EditCollectionTVC *)[segue destinationViewController];
+    ectvc.selectedCollection=self.selectedFavorite;
     
 }
 
