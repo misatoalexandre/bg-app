@@ -10,6 +10,7 @@
 #import "BookListTVC.h"
 #import "CollectionListTVC.h"
 #import "GenreListTVC.h"
+#import "DashboardVC.h"
 
 
 @implementation AppDelegate
@@ -24,6 +25,7 @@
     UINavigationController *bookListTVCnav=[[tabBarController viewControllers]objectAtIndex:0];
     UINavigationController *collectionListTVCnav=[[tabBarController viewControllers]objectAtIndex:1];
     UINavigationController *genreListTVCnav=[[tabBarController viewControllers]objectAtIndex:2];
+    UINavigationController *dashboardVCnav=[[tabBarController viewControllers]objectAtIndex:3];
     
     BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
     bltvc.managedObjectContext=self.managedObjectContext;
@@ -33,6 +35,11 @@
     
     GenreListTVC *gltvc=[[genreListTVCnav viewControllers]objectAtIndex:0];
     gltvc.managedObjectContext=self.managedObjectContext;
+    
+    DashboardVC *dashboard=[[dashboardVCnav viewControllers]objectAtIndex:0];
+    dashboard.managedObjectContext=self.managedObjectContext;
+    
+    
     
     
     return YES;

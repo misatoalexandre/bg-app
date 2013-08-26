@@ -25,8 +25,8 @@
 -(void)awakeFromInsert{
     [super awakeFromInsert];
     self.dateAdded=[NSDate date];
-    self.author=@"Author";
-    self.title=@"Book Title";
+    //self.author=@"Author";
+    //self.title=@"Book Title";
 }
 
 @end
