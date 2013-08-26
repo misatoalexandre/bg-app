@@ -32,6 +32,11 @@
     [super viewDidLoad];
    
         [super viewDidLoad];
+    
+    self.searchResults=[NSMutableArray arrayWithCapacity:[[self.fetchedResultsController fetchedObjects]count]];
+    [self.tableView reloadData];
+    
+    
         NSError *error=nil;
         if (![self.fetchedResultsController performFetch:&error]) {
             NSLog(@"Error %@", error);
@@ -51,6 +56,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+-(void)viewDidUnload{
+    self.searchResults=nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,13 +104,26 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [[self.fetchedResultsController sections]count];
+    //return [[self.fetchedResultsController sections]count];
+    
+    if  (self.tableView ==self.searchDisplayController.searchResultsTableView){
+        return 1;
+    }else{
+        return [[self.fetchedResultsController sections]count];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
-    id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
-    return [secInfo numberOfObjects];
+    
+    if  (self.tableView ==self.searchDisplayController.searchResultsTableView){
+        return [self.searchResults count];
+    }else{
+        id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
+        return [secInfo numberOfObjects];
+    }
+
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,6 +132,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    
+    if (self.tableView ==self.searchDisplayController.searchResultsTableView) {
+        Favorite *favorite=nil;
+        favorite=[self.searchResults objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text=favorite.favorite;
+
+        
+    }
+    else{
     Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.detailTextLabel.text=favorite.favorite;
     
@@ -123,7 +153,7 @@
         NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
         cell.textLabel.text=noBookCountDisplay;
     }
-    
+    }
     return cell;
     
 }
@@ -236,6 +266,37 @@
         default:
             break;
     }
+}
+
+#pragma mark-Content Filtering
+-(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope{
+    [self.searchResults removeAllObjects];
+    
+    for (Favorite *favorite in [self.fetchedResultsController fetchedObjects] ) {
+        
+        if ([scope isEqualToString:@"All"] || [favorite.favorite isEqualToString:scope]) {
+            NSComparisonResult result=[favorite.favorite compare:searchText
+                                       options:(NSCaseInsensitiveSearch |NSDiacriticInsensitiveSearch)
+                                                           range:NSMakeRange(0, [searchText length])];
+            if (result==NSOrderedSame) {
+                [self.searchResults addObject:favorite];
+            }
+
+               }
+    
+        }
+}
+
+#pragma mark-UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    [self filterContentForSearchText:searchString scope:@"All"];
+    return YES;
+    
+}
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:@"All"];
+    return YES;
+    
 }
 
 
