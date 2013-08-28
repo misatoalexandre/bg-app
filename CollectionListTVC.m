@@ -33,7 +33,7 @@
    
         [super viewDidLoad];
     
-    self.searchResults=[NSMutableArray arrayWithCapacity:[[self.fetchedResultsController fetchedObjects]count]];
+    
     [self.tableView reloadData];
     
     
@@ -58,7 +58,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 -(void)viewDidUnload{
-    self.searchResults=nil;
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,12 +116,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
     
-    if  (self.tableView ==self.searchDisplayController.searchResultsTableView){
-        return [self.searchResults count];
-    }else{
+    
         id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
         return [secInfo numberOfObjects];
-    }
+    
 
    
 }
@@ -133,23 +131,17 @@
     
     // Configure the cell...
     
-    if (self.tableView ==self.searchDisplayController.searchResultsTableView) {
-        Favorite *favorite=nil;
-        favorite=[self.searchResults objectAtIndex:indexPath.row];
-        cell.textLabel.text=favorite.favorite;
-
-        
-    }
-    else{
+ 
+    
     Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.detailTextLabel.text=favorite.favorite;
+    cell.textLabel.text=favorite.favorite;
     
     unsigned int bookCount=[favorite.favoriteBooks count];
         
         NSString *bookNumber=[NSString stringWithFormat:@"%d",bookCount];
     
         cell.detailTextLabel.text=bookNumber;
-    }
+
     return cell;
     
 }
@@ -264,36 +256,8 @@
     }
 }
 
-#pragma mark-Content Filtering
--(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope{
-    [self.searchResults removeAllObjects];
-    
-    for (Favorite *favorite in [self.fetchedResultsController fetchedObjects] ) {
-        
-        if ([scope isEqualToString:@"All"] || [favorite.favorite isEqualToString:scope]) {
-            NSComparisonResult result=[favorite.favorite compare:searchText
-                                       options:(NSCaseInsensitiveSearch |NSDiacriticInsensitiveSearch)
-                                                           range:NSMakeRange(0, [searchText length])];
-            if (result==NSOrderedSame) {
-                [self.searchResults addObject:favorite];
-            }
 
-               }
-    
-        }
-}
 
-#pragma mark-UISearchDisplayController Delegate Methods
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
-    [self filterContentForSearchText:searchString scope:@"All"];
-    return YES;
-    
-}
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{
-    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:@"All"];
-    return YES;
-    
-}
 
 
 @end

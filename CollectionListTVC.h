@@ -16,8 +16,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) Favorite *selectedCollection;
-//Search bar implementation
-@property (strong, nonatomic) NSMutableArray *searchResults;
+
+
 
 
 @end
