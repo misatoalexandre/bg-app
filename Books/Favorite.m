@@ -14,4 +14,8 @@
 @dynamic favorite;
 @dynamic favoriteBooks;
 
+-(void)awakeFromInsert{
+    [super awakeFromInsert];
+    self.favorite=@"Collection";
+}
 @end

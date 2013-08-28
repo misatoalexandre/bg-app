@@ -103,7 +103,7 @@
     //Passing the selectedStatus's value to the BookDetailTVC and displyaing it in the readingStatusTableView(Cell).
     self.readingStatusTableView.textLabel.text=controller.selectedStatus.readingStatus;
     
-    if ([controller.selectedStatus.readingStatus isEqualToString:@"Read"]) {
+    if ([controller.selectedStatus.readingStatus isEqualToString:@"Read it"]) {
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
         self.readingStatusTableView.detailTextLabel.text= [formatter stringFromDate:controller.selectedStatus.updateDate];
@@ -118,20 +118,28 @@
 
 - (IBAction)save:(id)sender {
     //Saving Book Entity's attributes
+   
     [self.currentBook setTitle:self.titleField.text];
     [self.currentBook setAuthor:self.authorField.text];
     [self.currentBook setNotes:self.notesField.text];
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [self.currentBook setDateAdded:[formatter dateFromString:self.dateAddedField.text]];
-    
     //Saving Genre entity's attribute
     [self.currentBook setGenre:self.selectedGenre];
     [self.currentBook setFavorite:self.selectedCollection];
     [self.currentBook setStatus:self.selectedStatus];
+   
     
     
     [self.delegate bookDetailTVCDelegateSave:self];
+    
      
+}
+
+- (IBAction)textResignFirstResponder:(UITextField *)sender {
+    [self.titleField resignFirstResponder];
+    [self.authorField resignFirstResponder];
+    [self.dateAddedField resignFirstResponder];
 }
 @end

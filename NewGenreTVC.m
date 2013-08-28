@@ -41,6 +41,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)textResignFirstResponder:(id)sender {
+    [sender resignFirstResponder];
+}
+
 - (IBAction)save:(id)sender {
     
     [self.currentGenre setGenre:self.genreField.text];

@@ -10,7 +10,6 @@
 #import "Book.h"
 
 @interface BookListTVC ()
-
 @end
 
 @implementation BookListTVC
@@ -28,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -41,6 +42,11 @@
         NSLog(@"Error %@", error);
         abort() ;
     }
+
+   
+}
+-(void)viewWillDisappear:(BOOL)animated{
+     [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
 }
 
 
@@ -49,16 +55,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark-BookDetailTVCDelegate Section
 -(void)bookDetailTVCDelegateSave:(BookDetailTVC *)controller{
-    NSError *error=nil;
+   NSError *error=nil;
     NSManagedObjectContext *context=self.managedObjectContext;
     
     if (![context save:&error]) {
         NSLog(@"Error %@",error);
     }
-    //[self dismissViewControllerAnimated:YES completion:nil];
-[controller.navigationController popViewControllerAnimated:YES]; 
+[controller.navigationController popViewControllerAnimated:YES];
+   
 
 }
 
@@ -73,6 +80,8 @@
         Book *newBook=(Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
         bdtvc.currentBook=newBook;
         bdtvc.title=@"Add a Book";
+        
+        
     }else{
       
         NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
@@ -89,13 +98,18 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    
     return [[self.fetchedResultsController sections]count];
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
+    
     id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
-    return [secInfo numberOfObjects];
+        return [secInfo numberOfObjects];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,25 +118,27 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    /*Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    //NSString *titleGenreCollection=[NSString stringWithFormat:@"%@ %@ %@", book.title, book.genre.genre, book.favorite.favorite];
-   // cell.textLabel.text=titleGenreCollection;
+   Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    //self.selectedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
-    NSString *byAuthorAndStatus=[NSString stringWithFormat:@"by %@ %@", book.author,book.status.readingStatus];
-    cell.detailTextLabel.text=byAuthorAndStatus;*/
+    cell.detailTextLabel.text=book.author;
     
-    self.selectedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=self.selectedBook.title;
-    cell.detailTextLabel.text=self.selectedBook.author;
+    /*Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+     //NSString *titleGenreCollection=[NSString stringWithFormat:@"%@ %@ %@", book.title, book.genre.genre, book.favorite.favorite];
+     // cell.textLabel.text=titleGenreCollection;
+     cell.textLabel.text=book.title;
+     NSString *byAuthorAndStatus=[NSString stringWithFormat:@"by %@ %@", book.author,book.status.readingStatus];
+     cell.detailTextLabel.text=byAuthorAndStatus;*/
     
     return cell;
     
 }
+/*
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
-
+*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,14 +167,6 @@
     
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
 /*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -168,17 +176,7 @@
 }
 */
 
-/*
-#pragma mark - Navigation
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 #pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController!=nil) {
@@ -206,6 +204,7 @@
     return _fetchedResultsController;
     
 }
+
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
     [self.tableView endUpdates];
 }
@@ -247,6 +246,10 @@
             break;
     }
 }
+
+
+
+
 
 
 

@@ -41,9 +41,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)textResignFirstResponder:(id)sender {
+    [sender resignFirstResponder];
+}
+
 - (IBAction)save:(id)sender {
     [self.currentFavorite setFavorite:self.collectionField.text];
     [self.delegate newCollectionTVCSave:self];
+ 
     
 }
 @end

@@ -10,9 +10,18 @@
 #import "BookDetailTVC.h"
 #import "Book.h"
 
-@interface BookListTVC : UITableViewController <NSFetchedResultsControllerDelegate,BookDetailTVCDelegate >
+@protocol BookListTVCDelegate;
+
+@interface BookListTVC : UITableViewController <NSFetchedResultsControllerDelegate,BookDetailTVCDelegate>
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) Book *selectedBook;
+@property (strong, nonatomic) id<BookListTVCDelegate> delegate;
+
+@end
+
+@protocol BookListTVCDelegate
+-(void)bookListTVCDelegate:(NSInteger)bookCount;
 
 @end

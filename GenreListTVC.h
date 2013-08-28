@@ -10,8 +10,11 @@
 #import "NewGenreTVC.h"
 
 
+
+
 @interface GenreListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewGenreTVCDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) Genre *selectedGenre;
+
 @end

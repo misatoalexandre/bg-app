@@ -28,25 +28,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    BookListTVC *bookListTVC=[[BookListTVC alloc]init];
+    bookListTVC.delegate=self;
 
     self.totalBookCountLabel.layer.cornerRadius=40;
     self.readBookCountLabel.layer.cornerRadius=40;
     self.popularCategory.layer.cornerRadius=40;
     
+    
 	// Do any additional setup after loading the view.
+}
+-(void)bookListTVCDelegate:(NSInteger)bookCount{
+    NSString *totalBookDisplay=[NSString stringWithFormat:@"%d", bookCount];
+    self.totalBookCountLabel.text=totalBookDisplay;
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"seeBookList"]) {
         BookListTVC *bltvc=(BookListTVC *)[segue destinationViewController];
         bltvc.managedObjectContext=self.managedObjectContext;
+        bltvc.delegate=self;
     }
-    if ([segue.identifier isEqualToString:@"addBook"]) {
-        BookDetailTVC *bdtvc=(BookDetailTVC *)[segue destinationViewController];
-        
-        Book *newBook=(Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
-        bdtvc.currentBook=newBook;
-        bdtvc.title=@"Add a Book";
-    }
+    
+    
 }
 - (void)didReceiveMemoryWarning
 {

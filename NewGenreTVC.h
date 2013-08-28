@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *genreField;
 @property (strong, nonatomic) Genre *currentGenre;
 @property (weak, nonatomic) id<NewGenreTVCDelegate> delegate;
+- (IBAction)textResignFirstResponder:(id)sender;
 
 - (IBAction)save:(id)sender;
 

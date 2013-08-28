@@ -43,6 +43,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)dismissKeyboard:(id)sender {
+    [self.genreField resignFirstResponder];
+}
+
+- (IBAction)textResignFirstResponder:(id)sender {
+    [sender resignFirstResponder];
+}
+
 - (IBAction)edit:(id)sender {
     self.saveBtn.hidden=NO;
     self.editBtn.hidden=YES;
@@ -63,6 +71,7 @@
     NSString *newGenre=[NSString stringWithFormat:@"Category name was successfully updated to %@", self.selectedGenre.genre];
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Categoy name updated!" message:newGenre delegate:self  cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+    [self.genreField resignFirstResponder];
     
 }
 @end

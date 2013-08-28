@@ -136,7 +136,7 @@
     if (self.tableView ==self.searchDisplayController.searchResultsTableView) {
         Favorite *favorite=nil;
         favorite=[self.searchResults objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text=favorite.favorite;
+        cell.textLabel.text=favorite.favorite;
 
         
     }
@@ -145,14 +145,10 @@
     cell.detailTextLabel.text=favorite.favorite;
     
     unsigned int bookCount=[favorite.favoriteBooks count];
+        
+        NSString *bookNumber=[NSString stringWithFormat:@"%d",bookCount];
     
-    if (bookCount > 1 ) {
-        NSString *bookCountDisplay=[NSString stringWithFormat:@"%d books", bookCount];
-        cell.textLabel.text=bookCountDisplay;
-    } else{
-        NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
-        cell.textLabel.text=noBookCountDisplay;
-    }
+        cell.detailTextLabel.text=bookNumber;
     }
     return cell;
     

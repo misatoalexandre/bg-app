@@ -15,4 +15,8 @@
 @dynamic genre;
 @dynamic genreBooks;
 
+-(void)awakeFromInsert{
+    [super awakeFromInsert];
+    self.genre=@"Category";
+}
 @end

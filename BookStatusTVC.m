@@ -33,6 +33,7 @@
     }else{
         
     }
+    
 }
 -(void) insertStatusWithStatus:(NSString *)statusTitle{
     Status *status=[NSEntityDescription insertNewObjectForEntityForName:@"Status"
@@ -41,8 +42,7 @@
     [self.managedObjectContext save:nil];
 }
 -(void)importCoreDataDefaultsCollection{
-    [self insertStatusWithStatus:@"Read"];
-    [self insertStatusWithStatus:@"Currently reading"];
+    [self insertStatusWithStatus:@"Read it"];
     [self insertStatusWithStatus:@"Wish to read"];
 }
 
@@ -94,6 +94,8 @@
     Status *status=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=status.readingStatus;
     
+    
+    
     return cell;
     
 }
@@ -105,7 +107,7 @@
     self.selectedStatus=[self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.delegate statusWasSelectedOnBookStatusnTVC:self];
     
-    if ([self.selectedStatus.readingStatus isEqualToString:@"Read"]) {
+    if ([self.selectedStatus.readingStatus isEqualToString:@"Read it"]) {
         self.selectedStatus.updateDate=[NSDate date];
        NSString *message=[NSString stringWithFormat:@"on %@", self.selectedStatus.updateDate];
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Read this book" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -114,6 +116,22 @@
    
 
 }
+/*- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        NSManagedObjectContext *context=self.managedObjectContext;
+        Status *status=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:status];
+        
+        NSError *error=nil;
+        if (![context save:&error]) {
+            NSLog(@"Error %@", error);
+        }
+    }
+    
+}*/
+
 
 
 // Override to support editing the table view.
@@ -176,10 +194,9 @@
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"readingStatus"
                                                                    ascending:YES];
-    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"updateDate"
-                                                                   ascending:YES];
+    
 
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,sortDescriptorTwo,nil];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];

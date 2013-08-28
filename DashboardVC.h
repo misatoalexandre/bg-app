@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "BookListTVC.h"
 
-@interface DashboardVC : UIViewController
+
+
+@interface DashboardVC : UIViewController<BookListTVCDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UILabel *totalBookCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *readBookCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *popularCategory;
+
 
 @end

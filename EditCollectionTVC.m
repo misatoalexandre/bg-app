@@ -30,6 +30,7 @@
     self.saveBtn.hidden=YES;
     [self.collectionField setUserInteractionEnabled:NO];
     [self.tableViewCell setHighlighted:NO];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -51,6 +52,7 @@
     self.editBtn.userInteractionEnabled=NO;
     self.saveBtn.hidden=NO;
     self.saveBtn.userInteractionEnabled=YES;
+    self.tableViewCell.highlighted=YES;
     
     //Text field states.
     self.collectionField.userInteractionEnabled=YES;
@@ -58,9 +60,6 @@
     
     //Table View Cell State
     self.tableViewCell.highlighted=YES;
-    
-
-    
     
 }
 
@@ -70,6 +69,7 @@
     self.editBtn.userInteractionEnabled=YES;
     self.saveBtn.hidden=YES;
     self.saveBtn.userInteractionEnabled=NO;
+    self.tableViewCell.highlighted=NO;
     
     //Text field states
     self.collectionField.userInteractionEnabled=NO;
@@ -86,7 +86,12 @@
     NSString *newGenre=[NSString stringWithFormat:@"Category name was successfully updated to %@", self.selectedCollection.favorite];
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Collection name updated!" message:newGenre delegate:self  cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
-
-
+    [self.collectionField resignFirstResponder];
 }
+
+- (IBAction)textFieldReturn:(id)sender {
+    [sender resignFirstResponder];
+}
+
+
 @end

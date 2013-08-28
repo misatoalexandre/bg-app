@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 
 
+- (IBAction)dismissKeyboard:(id)sender;
+- (IBAction)textResignFirstResponder:(id)sender;
 
 
 - (IBAction)edit:(id)sender;
