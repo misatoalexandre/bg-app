@@ -29,6 +29,7 @@
     [super viewDidLoad];
     
     [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -133,12 +134,12 @@
     return cell;
     
 }
-/*
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
-*/
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,7 +200,7 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorZero,sortDescriptor,sortDescriptorTwo,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"dateAdded" cacheName:nil];
+    _fetchedResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     _fetchedResultsController.delegate=self;
     return _fetchedResultsController;
     

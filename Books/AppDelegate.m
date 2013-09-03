@@ -30,6 +30,7 @@
     BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
     bltvc.managedObjectContext=self.managedObjectContext;
     
+    
     CollectionListTVC *cltvc=[[collectionListTVCnav viewControllers]objectAtIndex:0];
     cltvc.managedObjectContext=self.managedObjectContext;
     

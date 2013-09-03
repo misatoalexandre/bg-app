@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		537BF84117CE76A50095C40E /* highway.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 537BF84017CE76A50095C40E /* highway.jpg */; };
+		537BF84317CE77410095C40E /* Screen Shot 2013-08-26 at 1.50.34 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 537BF84217CE77410095C40E /* Screen Shot 2013-08-26 at 1.50.34 PM.png */; };
 		5389227C17C2C6CB00EFFC7F /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389227B17C2C6CB00EFFC7F /* Favorite.m */; };
 		5389228217C2C6CB00EFFC7F /* Genre.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389228117C2C6CB00EFFC7F /* Genre.m */; };
 		5389228517C2C6CB00EFFC7F /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389228417C2C6CB00EFFC7F /* Status.m */; };
@@ -63,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		537BF84017CE76A50095C40E /* highway.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = highway.jpg; sourceTree = "<group>"; };
+		537BF84217CE77410095C40E /* Screen Shot 2013-08-26 at 1.50.34 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2013-08-26 at 1.50.34 PM.png"; sourceTree = "<group>"; };
 		5389227A17C2C6CB00EFFC7F /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Favorite.h; path = Books/Favorite.h; sourceTree = "<group>"; };
 		5389227B17C2C6CB00EFFC7F /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Favorite.m; path = Books/Favorite.m; sourceTree = "<group>"; };
 		5389228017C2C6CB00EFFC7F /* Genre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Genre.h; path = Books/Genre.h; sourceTree = "<group>"; };
@@ -77,7 +81,7 @@
 		5389228E17C2CE3100EFFC7F /* MainStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		538922D217C30C8700EFFC7F /* BookDetailTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailTVC.h; sourceTree = "<group>"; };
 		538922D317C30C8700EFFC7F /* BookDetailTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailTVC.m; sourceTree = "<group>"; };
-		538922D517C3195800EFFC7F /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
+		538922D517C3195800EFFC7F /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
 		538922D617C328CA00EFFC7F /* BookGenreTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGenreTVC.h; sourceTree = "<group>"; };
 		538922D717C328CA00EFFC7F /* BookGenreTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGenreTVC.m; sourceTree = "<group>"; };
 		538922D917C3C7FF00EFFC7F /* BookGenreDetailTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGenreDetailTVC.h; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				5389230C17C67BA700EFFC7F /* edit-25.png */,
+				537BF84217CE77410095C40E /* Screen Shot 2013-08-26 at 1.50.34 PM.png */,
+				537BF84017CE76A50095C40E /* highway.jpg */,
 				538922ED17C55FA200EFFC7F /* glasses-25.png */,
 				538922E317C55E9200EFFC7F /* brain-25.png */,
 				538922E917C55F2D00EFFC7F /* inbox-25.png */,
@@ -391,6 +397,8 @@
 				538922EE17C55FA200EFFC7F /* glasses-25.png in Resources */,
 				538922EA17C55F2D00EFFC7F /* inbox-25.png in Resources */,
 				5389228A17C2C72300EFFC7F /* bookmark-25.png in Resources */,
+				537BF84317CE77410095C40E /* Screen Shot 2013-08-26 at 1.50.34 PM.png in Resources */,
+				537BF84117CE76A50095C40E /* highway.jpg in Resources */,
 				538922E817C55ECC00EFFC7F /* speedometer-25.png in Resources */,
 				538922E417C55E9200EFFC7F /* brain-25.png in Resources */,
 				538922E617C55EB200EFFC7F /* hearts-25.png in Resources */,
