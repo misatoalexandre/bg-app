@@ -27,8 +27,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Search bar setup
+    self.bookSearch.placeholder=@"Search by book title or author";
     
-    [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
+    //[self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
     
 
     // Uncomment the following line to preserve selection between presentations.
@@ -47,7 +49,7 @@
    
 }
 -(void)viewWillDisappear:(BOOL)animated{
-     [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
+    // [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
 }
 
 

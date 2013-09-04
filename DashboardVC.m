@@ -28,8 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    BookListTVC *bookListTVC=[[BookListTVC alloc]init];
-    bookListTVC.delegate=self;
+    //BookListTVC *bookListTVC=[[BookListTVC alloc]init];
+    //bookListTVC.delegate=self;
 
     self.totalBookCountLabel.layer.cornerRadius=40;
     self.readBookCountLabel.layer.cornerRadius=40;
@@ -46,7 +46,7 @@
     if ([segue.identifier isEqualToString:@"seeBookList"]) {
         BookListTVC *bltvc=(BookListTVC *)[segue destinationViewController];
         bltvc.managedObjectContext=self.managedObjectContext;
-        bltvc.delegate=self;
+        //bltvc.delegate=self;
     }
     
     

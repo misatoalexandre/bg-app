@@ -12,7 +12,7 @@
 
 
 
-@interface DashboardVC : UIViewController<BookListTVCDelegate>
+@interface DashboardVC : UIViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UILabel *totalBookCountLabel;
