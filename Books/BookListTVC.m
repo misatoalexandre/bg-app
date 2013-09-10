@@ -27,17 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //Search bar setup
-    self.bookSearch.placeholder=@"Search by book title or author";
     
     //[self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
-    
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //Perform fetch
     NSError *error=nil;
@@ -45,53 +36,56 @@
         NSLog(@"Error %@", error);
         abort() ;
     }
-
-   
 }
--(void)viewWillDisappear:(BOOL)animated{
-    // [self.delegate bookListTVCDelegate:self.fetchedResultsController.fetchedObjects.count];
-}
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma mark-Search Bar Section
+-(void) searchBar: (UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if ([[searchBar text] length] >0)
+    {
+        NSPredicate *authorPredicate=[NSPredicate predicateWithFormat:@"title CONTAINS [cd] %@", [searchBar text]];
+        [self.fetchedResultsController.fetchRequest setPredicate:authorPredicate];
+    }else{
+        [self.fetchedResultsController.fetchRequest setPredicate:nil];
+    }
+    NSError *error=nil;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        NSLog(@"Unresolved error %@", error);
+    }
+    [self.tableView reloadData];
+    return;
+    
+}
 #pragma mark-BookDetailTVCDelegate Section
 -(void)bookDetailTVCDelegateSave:(BookDetailTVC *)controller{
-   NSError *error=nil;
+    NSError *error=nil;
     NSManagedObjectContext *context=self.managedObjectContext;
     
     if (![context save:&error]) {
         NSLog(@"Error %@",error);
     }
-[controller.navigationController popViewControllerAnimated:YES];
-   
-
+    [controller.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark-prepare for segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     BookDetailTVC *bdtvc=(BookDetailTVC *)[segue destinationViewController];
     bdtvc.delegate=self;
-   
+    
     if ([segue.identifier isEqualToString:@"addBook"]) {
-        
-        
         Book *newBook=(Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
         bdtvc.currentBook=newBook;
         bdtvc.title=@"Add a Book";
         
-        
     }else{
-      
         NSIndexPath *IndexPath=[self.tableView indexPathForSelectedRow];
-       // Book *selectedBook=(Book *)[self.fetchedResultsController objectAtIndexPath:IndexPath];
+        // Book *selectedBook=(Book *)[self.fetchedResultsController objectAtIndexPath:IndexPath];
         self.selectedBook=[self.fetchedResultsController objectAtIndexPath:IndexPath];
         bdtvc.currentBook=self.selectedBook;
-        
         bdtvc.title=@"Book Details";
     }
 }
@@ -101,17 +95,17 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    
     return [[self.fetchedResultsController sections]count];
-    
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
     
-    id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
-        return [secInfo numberOfObjects];
+    NSInteger rowCount=[[[self.fetchedResultsController sections]objectAtIndex:section] numberOfObjects];
+    NSDictionary *bookCount= [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:rowCount],@"books", nil];
+    //Post notification "TotalBookCount"
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"TotalBookCount" object:self userInfo:bookCount];
+    return rowCount;
     
 }
 
@@ -121,7 +115,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-   Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
     //self.selectedBook=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
     cell.detailTextLabel.text=book.author;
@@ -142,14 +136,6 @@
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
 
 // Override to support editing the table view.
@@ -170,14 +156,6 @@
     
 }
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark-Fetched Results Controller Section
@@ -192,7 +170,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptorZero= [[NSSortDescriptor alloc] initWithKey:@"dateAdded"
-                                                                   ascending:NO];
+                                                                      ascending:NO];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                    ascending:YES];
@@ -210,6 +188,7 @@
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
     [self.tableView endUpdates];
+    
 }
 -(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];

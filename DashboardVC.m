@@ -28,19 +28,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //BookListTVC *bookListTVC=[[BookListTVC alloc]init];
-    //bookListTVC.delegate=self;
+ 
 
     self.totalBookCountLabel.layer.cornerRadius=40;
     self.readBookCountLabel.layer.cornerRadius=40;
     self.popularCategory.layer.cornerRadius=40;
+   
+    //Become observer of book count.
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(receiveNotification:)
+                                                name:@"TotalBookCount"
+                                              object:nil];
     
-    
-	// Do any additional setup after loading the view.
 }
--(void)bookListTVCDelegate:(NSInteger)bookCount{
-    NSString *totalBookDisplay=[NSString stringWithFormat:@"%d", bookCount];
-    self.totalBookCountLabel.text=totalBookDisplay;
+//receive book count's notification.
+-(void)receiveNotification:(NSNotification *)notification{
+    if ([[notification name]isEqualToString:@"TotalBookCount"]) {
+        NSString *count =[notification.userInfo objectForKey:@"books"];
+        NSString *bookCountDisplay=[NSString stringWithFormat:@"%@", count];
+        self.totalBookCountLabel.text=bookCountDisplay;
+    }
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"seeBookList"]) {
@@ -48,13 +55,15 @@
         bltvc.managedObjectContext=self.managedObjectContext;
         //bltvc.delegate=self;
     }
-    
-    
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+}
+
+
 
 @end

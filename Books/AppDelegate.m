@@ -39,12 +39,13 @@
     
     DashboardVC *dashboard=[[dashboardVCnav viewControllers]objectAtIndex:0];
     dashboard.managedObjectContext=self.managedObjectContext;
-    
-    
-    
+    //[self customTab];
     
     return YES;
 }
+/*-(void)customTab{
+    [[UITabBar appearance]setBackgroundColor:[UIColor clearColor]];
+}*/
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
