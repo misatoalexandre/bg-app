@@ -57,6 +57,7 @@
         NSLog(@"Unresolved error %@", error);
     }
     [self.tableView reloadData];
+    [self.searchBar resignFirstResponder];
     return;
     
 }
