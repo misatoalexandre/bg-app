@@ -47,7 +47,7 @@
 -(void) searchBar: (UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     if ([[searchBar text] length] >0)
     {
-        NSPredicate *authorPredicate=[NSPredicate predicateWithFormat:@"title CONTAINS [cd] %@", [searchBar text]];
+        NSPredicate *authorPredicate=[NSPredicate predicateWithFormat:@"title CONTAINS [cd] %@ OR author CONTAINS [cd] %@",[searchBar text],[searchBar text]];
         [self.fetchedResultsController.fetchRequest setPredicate:authorPredicate];
     }else{
         [self.fetchedResultsController.fetchRequest setPredicate:nil];
