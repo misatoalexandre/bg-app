@@ -36,7 +36,8 @@
     self.dateAddedField.text=[formatter stringFromDate:self.currentBook.dateAdded];
     self.categoryLabel.text=self.currentBook.genre.genre;
     self.collectionLabel.text=self.currentBook.favorite.favorite;
-   }
+   
+      }
 
 - (void)didReceiveMemoryWarning
 {
@@ -100,7 +101,8 @@
         NSString *readItDate=[formatter stringFromDate:controller.selectedStatus.updateDate];
         NSString *readStatusWithDate=[NSString stringWithFormat:@"%@ on %@",controller.selectedStatus.readingStatus, readItDate];
         self.statusField.text=readStatusWithDate ;
-    } else{
+    }
+    else{
         self.statusField.text=controller.selectedStatus.readingStatus;
     }
     self.selectedStatus=controller.selectedStatus;
@@ -124,13 +126,33 @@
 }
 - (IBAction)save:(id)sender {
     //Saving Book Entity's attributes
-    if (![self.titleField.text isEqualToString:@""]) {
+    if ([self.titleField.text isEqualToString:@""]) {
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [view show];
+    } if (self.selectedStatus.readingStatus==nil) {
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Status Missing" message:@"Please select your reading status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [view show];
+       
+    }else{
         [self saveCurrentBook];
         [self.delegate bookDetailTVCDelegateSave];
-    } else{
-        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [view show];
     }
+    
+    
+   /* if (![self.titleField.text isEqualToString:@""]) {
+        
+            [self saveCurrentBook];
+            [self.delegate bookDetailTVCDelegateSave];
+    
+    } else
+    {
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [view show];
+    }*/
+    
     }
 
 - (IBAction)saveNav:(id)sender {

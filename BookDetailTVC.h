@@ -35,7 +35,7 @@
 
 
 
-//@property (weak, nonatomic) IBOutlet UITableViewCell *readingStatusTableView;
+
 - (IBAction)saveNav:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
