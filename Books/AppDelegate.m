@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "BookListTVC.h"
-#import "CollectionListTVC.h"
-#import "GenreListTVC.h"
-#import "DashboardVC.h"
+#import "MenuTVC.h"
+
+
+
 
 
 @implementation AppDelegate
@@ -21,15 +21,40 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   UITabBarController *tabBarController =(UITabBarController *)self.window.rootViewController;
+  
+    UINavigationController *nav=(UINavigationController *)self.window.rootViewController;
+    MenuTVC *mtvc=(MenuTVC *)[[nav viewControllers]objectAtIndex:0];
+                   mtvc.managedObjectContext=self.managedObjectContext;
+
+   UIImage *navImage=[UIImage imageNamed:@"navy.png"];
+   
+    [[UINavigationBar appearance]setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
+    
+    
+   NSDictionary *navbarTitleTextAttributes =
+    [NSDictionary dictionaryWithObjectsAndKeys:
+    
+     [UIColor whiteColor],UITextAttributeTextColor,
+     
+     [UIColor whiteColor], UITextAttributeTextShadowColor,
+     
+     
+     nil];
+    
+   [[UINavigationBar appearance]setTitleTextAttributes:navbarTitleTextAttributes];
+
+    
+   /* UITabBarController *tabBarController =(UITabBarController *)self.window.rootViewController;
     UINavigationController *bookListTVCnav=[[tabBarController viewControllers]objectAtIndex:0];
     UINavigationController *collectionListTVCnav=[[tabBarController viewControllers]objectAtIndex:1];
     UINavigationController *genreListTVCnav=[[tabBarController viewControllers]objectAtIndex:2];
-    UINavigationController *dashboardVCnav=[[tabBarController viewControllers]objectAtIndex:3];
+    UINavigationController *dashboardVCnav=[[tabBarController viewControllers]objectAtIndex:3];*/
     
-    BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
+    /*BookListTVC *bltvc=[[bookListTVCnav viewControllers]objectAtIndex:0];
     bltvc.managedObjectContext=self.managedObjectContext;
-    
+    bltvc.title=@"Title";
+  
     
     CollectionListTVC *cltvc=[[collectionListTVCnav viewControllers]objectAtIndex:0];
     cltvc.managedObjectContext=self.managedObjectContext;
@@ -39,7 +64,27 @@
     
     DashboardVC *dashboard=[[dashboardVCnav viewControllers]objectAtIndex:0];
     dashboard.managedObjectContext=self.managedObjectContext;
-    //[self customTab];
+    //[self customTab];*/
+                   
+    //styling the nav bar
+    
+     //[[UITabBar appearance]setBarTintColor:[UIColor whiteColor]];
+    /*[[UITabBar appearance]setBackgroundColor:[UIColor clearColor]];
+    UIImage *transparentImage=[UIImage imageNamed:@".png"];
+    [[UINavigationBar appearance]setBackgroundImage:transparentImage forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
+    
+    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIColor whiteColor],UITextAttributeTextColor,
+                                               [UIColor blackColor], UITextAttributeTextShadowColor, nil];
+    [[UINavigationBar appearance]setTitleTextAttributes:navbarTitleTextAttributes];*/
+   
+    
+    
+    
+  
+   
+
     
     return YES;
 }

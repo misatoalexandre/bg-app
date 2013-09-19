@@ -17,7 +17,6 @@
 @property (strong, nonatomic) Favorite *currentFavorite;
 @property (weak, nonatomic) id<NewCollectionTVCDelegate> delegate;
 - (IBAction)textResignFirstResponder:(id)sender;
-
 - (IBAction)save:(id)sender;
 @end
 

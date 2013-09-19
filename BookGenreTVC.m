@@ -40,21 +40,22 @@
     [self.managedObjectContext save:nil];
 }
 -(void)importCoreDataDefaultsGenres{
-    [self insertGenrewithGenre:@"Arts & Entertainment"];
-    [self insertGenrewithGenre:@"Biographies & Memoirs"];
-    [self insertGenrewithGenre:@"Business & Investing"];
-    [self insertGenrewithGenre:@"Children's Books"];
-    [self insertGenrewithGenre:@"Children's Books: Ages 9-12"];
-    [self insertGenrewithGenre:@"Comics & Graphic Novels"];
-    [self insertGenrewithGenre:@"Computers & Technology"];
-    [self insertGenrewithGenre:@"Cooking, Food & Wine"];
-    [self insertGenrewithGenre:@"Education"];
-    [self insertGenrewithGenre:@"Engineering"];
-    [self insertGenrewithGenre:@"Fiction & Literature"];
-    [self insertGenrewithGenre:@"Health, Mind & Body"];
-    [self insertGenrewithGenre:@"History"];
-    [self insertGenrewithGenre:@"Home & Garden"];
     [self insertGenrewithGenre:@"Law"];
+    [self insertGenrewithGenre:@"Home & Garden"];
+    [self insertGenrewithGenre:@"History"];
+    [self insertGenrewithGenre:@"Health, Mind & Body"];
+    [self insertGenrewithGenre:@"Fiction & Literature"];
+    [self insertGenrewithGenre:@"Engineering"];
+    [self insertGenrewithGenre:@"Education"];
+    [self insertGenrewithGenre:@"Cooking, Food & Wine"];
+    [self insertGenrewithGenre:@"Computers & Technology"];
+    [self insertGenrewithGenre:@"Comics & Graphic Novels"];
+    [self insertGenrewithGenre:@"Children's Books"];
+    [self insertGenrewithGenre:@"Business & Investing"];
+    [self insertGenrewithGenre:@"Biographies & Memoirs"];
+    [self insertGenrewithGenre:@"Arts & Entertainment"];
+    
+    
  
 }
  
@@ -69,11 +70,6 @@
         [alert show];
     }
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,19 +86,14 @@
         bgdtvc.delegate=self;
         Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
         bgdtvc.currentGenre=newGenre;
-    }/*else{
-        NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-        Genre *selectedGenre=(Genre *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        bgdtvc.currentGenre=selectedGenre;
-    }*/
+    }
 }
 -(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
     NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
-    [controller.navigationController popViewControllerAnimated:YES];
-}
+    }
 
 
 #pragma mark - Table view data source
@@ -207,7 +198,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"genre"
-                                                                   ascending:YES];
+                                                                   ascending:NO];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];

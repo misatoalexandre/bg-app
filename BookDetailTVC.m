@@ -16,9 +16,9 @@
 
 @implementation BookDetailTVC
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -34,18 +34,9 @@
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     self.dateAddedField.text=[formatter stringFromDate:self.currentBook.dateAdded];
-    self.genreTableViewCell.textLabel.text=self.currentBook.genre.genre;
-    self.CollectionTableViewCell.textLabel.text=self.currentBook.favorite.favorite;
-    self.readingStatusTableView.textLabel.text=self.currentBook.status.readingStatus;
-   // self.readingStatusTableView.detailTextLabel.text=self.currentBook.status.updateDate;
-    
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+    self.categoryLabel.text=self.currentBook.genre.genre;
+    self.collectionLabel.text=self.currentBook.favorite.favorite;
+   }
 
 - (void)didReceiveMemoryWarning
 {
@@ -67,7 +58,6 @@
         BookGenreTVC *bgtvc=(BookGenreTVC *)[segue destinationViewController];
         bgtvc.delegate=self;
         
-        //AppDelegate *myApp=(AppDelegate *)[[UIApplication sharedApplication]delegate];
         bgtvc.managedObjectContext=myApp.managedObjectContext;
     }
     
@@ -78,28 +68,29 @@
         
         bctvc.managedObjectContext=myApp.managedObjectContext;
     }
-    if ([segue.identifier isEqualToString:@"addStatus"]) {
+   /* if ([segue.identifier isEqualToString:@"addStatus"]) {
         BookStatusTVC *bstvc=(BookStatusTVC *)[segue destinationViewController];
         bstvc.delegate=self;
         bstvc.managedObjectContext=myApp.managedObjectContext;
-    }
+    }*/
     
 }
 -(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller  {
     //Passing the selectedGenre's value to the BookDetailTVC and displaying it in genreTableViewCell.
-    self.genreTableViewCell.textLabel.text=controller.selectedGenre.genre;
-    
+    self.categoryLabel.text=controller.selectedGenre.genre;
     self.selectedGenre=controller.selectedGenre;
-    [controller.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)collectionWasSelectedOnBookCollectionTVC:(BookCollectionTVC *)controller{
     //Passing the selectedCollection's value to the BookDetailTVC and displaying it in collectionlTableViewCell.
-    self.CollectionTableViewCell.textLabel.text=controller.selectedCollection.favorite;
+    self.collectionLabel.text=controller.selectedCollection.favorite;
     self.selectedCollection=controller.selectedCollection;
-    [controller.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
--(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
+
+/*-(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
     //Passing the selectedStatus's value to the BookDetailTVC and displyaing it in the readingStatusTableView(Cell).
     self.readingStatusTableView.textLabel.text=controller.selectedStatus.readingStatus;
     
@@ -112,13 +103,10 @@
     }
     self.selectedStatus=controller.selectedStatus;
     [controller.navigationController popViewControllerAnimated:YES];
-}
+}*/
 
 
-
-- (IBAction)save:(id)sender {
-    //Saving Book Entity's attributes
-   
+-(void)saveCurrentBook{
     [self.currentBook setTitle:self.titleField.text];
     [self.currentBook setAuthor:self.authorField.text];
     [self.currentBook setNotes:self.notesField.text];
@@ -129,17 +117,27 @@
     [self.currentBook setGenre:self.selectedGenre];
     [self.currentBook setFavorite:self.selectedCollection];
     [self.currentBook setStatus:self.selectedStatus];
-   
     
-    
-    [self.delegate bookDetailTVCDelegateSave:self];
-    
-     
+}
+- (IBAction)save:(id)sender {
+    //Saving Book Entity's attributes
+    [self saveCurrentBook];
+    [self.delegate bookDetailTVCDelegateSave];
+}
+
+- (IBAction)saveNav:(id)sender {
+    [self saveCurrentBook];
+    [self.delegate bookDetailTVCDelegateSavePush:self];
+}
+
+-(void)cancel:(id)sender{
+    [self.delegate bookDetailTVCDelegateCancel:self.currentBook];
 }
 
 - (IBAction)textResignFirstResponder:(UITextField *)sender {
     [self.titleField resignFirstResponder];
     [self.authorField resignFirstResponder];
     [self.dateAddedField resignFirstResponder];
+    [self.notesField resignFirstResponder];
 }
 @end

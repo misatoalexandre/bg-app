@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) Genre *currentGenre;
 @property (weak, nonatomic) id<BookGenreDetailTVCDelegate> delegate;
-
+- (IBAction)removeKeyboard:(id)sender;
 - (IBAction)save:(id)sender;
 @end
 

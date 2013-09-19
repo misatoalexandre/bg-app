@@ -17,6 +17,6 @@
 
 -(void)awakeFromInsert{
     [super awakeFromInsert];
-    self.genre=@"Category";
+    
 }
 @end

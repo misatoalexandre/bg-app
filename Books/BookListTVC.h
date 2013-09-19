@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
 @property (strong, nonatomic) Book *selectedBook;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 

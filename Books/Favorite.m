@@ -16,6 +16,6 @@
 
 -(void)awakeFromInsert{
     [super awakeFromInsert];
-    self.favorite=@"Collection";
+   
 }
 @end

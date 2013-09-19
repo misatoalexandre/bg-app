@@ -7,6 +7,7 @@
 //
 
 #import "BookCollectionTVC.h"
+#import "BookCollectionDetailTVC.h"
 
 @interface BookCollectionTVC ()
 
@@ -41,11 +42,16 @@
     [self.managedObjectContext save:nil];
 }
 -(void)importCoreDataDefaultsCollection{
-    [self insertFavoriteWithCollection:@"Best Books of The Year"];
-    [self insertFavoriteWithCollection:@"Must Read"];
     [self insertFavoriteWithCollection:@"Timeless Classic"];
-    [self insertFavoriteWithCollection:@"All time favorites"];
     [self insertFavoriteWithCollection:@"Recommended"];
+    [self insertFavoriteWithCollection:@"Must Read"];
+    [self insertFavoriteWithCollection:@"Best Books of The Year"];
+    [self insertFavoriteWithCollection:@"All time favorites"];
+    
+    
+    
+    
+    
     
     
 }
@@ -74,27 +80,26 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark-Prepare for segue
-/*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
-    bgdtvc.delegate=self;
-    
-    if ([segue.identifier isEqualToString:@"addGenre"]) {
-        Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
-        bgdtvc.currentGenre=newGenre;
-    }else{
-        NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-        Genre *selectedGenre=(Genre *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        bgdtvc.currentGenre=selectedGenre;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"addCollection"]) {
+        BookCollectionDetailTVC *bookCollectiondtvc=(BookCollectionDetailTVC *)[segue destinationViewController];
+        bookCollectiondtvc.delegate=self;
+        
+        Favorite *newFavorite=(Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
+        bookCollectiondtvc.currentFavorite=newFavorite;
+
     }
-}*/
-/*-(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
+    
+    }
+
+-(void)bookCollectionDetailTVCDelegateSave:(BookCollectionDetailTVC *)controller{
     NSError *error=nil;
     // NSManagedObjectContext *context=self.managedObjectContext;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
-    [controller.navigationController popViewControllerAnimated:YES];
-}*/
+    
+}
 
 
 #pragma mark - Table view data source
@@ -199,7 +204,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"favorite"
-                                                                   ascending:YES];
+                                                                   ascending:NO];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];

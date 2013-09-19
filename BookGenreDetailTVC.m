@@ -42,8 +42,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)removeKeyboard:(id)sender {
+    [self resignFirstResponder];
+}
+
+
 - (IBAction)save:(id)sender {
-    [self.currentGenre setGenre:self.genreField.text];
-    [self.delegate bookGenreDetailTVCDelegateSave:self];
+    if (![self.genreField.text isEqualToString:@""]) {
+        [self.currentGenre setGenre:self.genreField.text];
+        [self.delegate bookGenreDetailTVCDelegateSave:self];
+        self.genreField.text=@"";
+    }else{
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Categoy name missing" message:@"Please type a new category name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+    
+
 }
 @end

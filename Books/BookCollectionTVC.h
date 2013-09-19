@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Favorite.h"
+#import "BookCollectionDetailTVC.h"
 
 
 @protocol BookCollectionTVCDelegate;
 
-@interface BookCollectionTVC : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface BookCollectionTVC : UITableViewController <NSFetchedResultsControllerDelegate, BookCollectionDetailTVCDelegate>
 
 @property (strong, nonatomic)NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
