@@ -20,9 +20,11 @@
 - (IBAction)textResignFirstResponder:(id)sender;
 
 - (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 @end
 
 @protocol NewGenreTVCDelegate
--(void) newGenreTVCSave:(NewGenreTVC *)controller;
+-(void) newGenreTVCSave;
+-(void) newGenreTVCCancel:(Genre *)genreToDelete;
 @end

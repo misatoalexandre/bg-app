@@ -49,11 +49,6 @@
     [self insertFavoriteWithCollection:@"All time favorites"];
     
     
-    
-    
-    
-    
-    
 }
 
 
@@ -91,11 +86,12 @@
     }
     }
 
--(void)bookCollectionDetailTVCDelegateSave:(BookCollectionDetailTVC *)controller{
+-(void)bookCollectionDetailTVCDelegateSave{
     NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
+     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)bookCollectionDetailTVCDelegateCancel:(Favorite *)favoriteToDelete{
     [self.managedObjectContext deleteObject:favoriteToDelete];

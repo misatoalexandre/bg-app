@@ -46,8 +46,17 @@
 }
 
 - (IBAction)save:(id)sender {
-    
-    [self.currentGenre setGenre:self.genreField.text];
-    [self.delegate newGenreTVCSave:self];
+    if (![self.genreField.text isEqualToString:@""]) {
+        [self.currentGenre setGenre:self.genreField.text];
+        [self.delegate newGenreTVCSave];
+        self.genreField.text=@"";
+    }else{
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Category name missing" message:@"Please type a new category name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+}
+
+- (IBAction)cancel:(id)sender {
+    [self.delegate newGenreTVCCancel:self.currentGenre];
 }
 @end

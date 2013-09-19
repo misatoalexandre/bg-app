@@ -18,8 +18,10 @@
 @property (weak, nonatomic) id<NewCollectionTVCDelegate> delegate;
 - (IBAction)textResignFirstResponder:(id)sender;
 - (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
 @end
 
 @protocol NewCollectionTVCDelegate
--(void)newCollectionTVCSave:(NewCollectionTVC *)controller;
+-(void)newCollectionTVCSave;
+-(void)newCollectionTVCCancel:(Favorite *)favoriteToDelete;
 @end

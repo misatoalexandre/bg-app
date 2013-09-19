@@ -50,11 +50,16 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark- newCollectionTVCDelegate method
--(void)newCollectionTVCSave:(NewCollectionTVC *)controller{
+-(void)newCollectionTVCSave{
     NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)newCollectionTVCCancel:(Favorite *)favoriteToDelete{
+    [self.managedObjectContext deleteObject:favoriteToDelete];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark-prepare for segue
 
@@ -86,15 +91,15 @@
 {
     
     return [[self.fetchedResultsController sections]count];
-   
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
     
     
-        id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
-        return [secInfo numberOfObjects];
+    id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
+    return [secInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,17 +109,27 @@
     
     // Configure the cell...
     
- 
+    
     
     Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=favorite.favorite;
     
     unsigned int bookCount=[favorite.favoriteBooks count];
-        
-        NSString *bookNumber=[NSString stringWithFormat:@"%d",bookCount];
-    
-        cell.detailTextLabel.text=bookNumber;
 
+    
+    if (bookCount > 1 ) {
+        NSString *bookCountDisplay=[NSString stringWithFormat:@"%d books", bookCount];
+        cell.detailTextLabel.text=bookCountDisplay;
+    } else{
+        NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
+        cell.detailTextLabel.text=noBookCountDisplay;
+    }
+
+    
+   // NSString *bookNumber=[NSString stringWithFormat:@"%d",bookCount];
+    
+    //cell.detailTextLabel.text=bookNumber;
+    
     return cell;
     
 }
@@ -126,7 +141,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context=self.managedObjectContext;
         Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];

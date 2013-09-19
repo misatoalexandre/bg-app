@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     self.collectionField.text=self.currentFavorite.favorite;
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,14 +43,15 @@
 - (IBAction)save:(id)sender {
     if (![self.collectionField.text isEqualToString:@""]) {
         [self.currentFavorite setFavorite:self.collectionField.text];
-        [self.delegate newCollectionTVCSave:self];
+        [self.delegate newCollectionTVCSave];
         self.collectionField.text=@"";
     }else{
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Collection name missing" message:@"Please type a new collection name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
     }
-  
- 
-    
+}
+
+- (IBAction)cancel:(id)sender {
+    [self.delegate newCollectionTVCCancel:self.currentFavorite];
 }
 @end

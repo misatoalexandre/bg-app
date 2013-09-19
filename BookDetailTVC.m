@@ -68,11 +68,11 @@
         
         bctvc.managedObjectContext=myApp.managedObjectContext;
     }
-   /* if ([segue.identifier isEqualToString:@"addStatus"]) {
+    if ([segue.identifier isEqualToString:@"addStatus"]) {
         BookStatusTVC *bstvc=(BookStatusTVC *)[segue destinationViewController];
         bstvc.delegate=self;
         bstvc.managedObjectContext=myApp.managedObjectContext;
-    }*/
+    }
     
 }
 -(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller  {
@@ -90,20 +90,22 @@
 
 }
 
-/*-(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
+-(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
     //Passing the selectedStatus's value to the BookDetailTVC and displyaing it in the readingStatusTableView(Cell).
-    self.readingStatusTableView.textLabel.text=controller.selectedStatus.readingStatus;
+    
     
     if ([controller.selectedStatus.readingStatus isEqualToString:@"Read it"]) {
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
-        self.readingStatusTableView.detailTextLabel.text= [formatter stringFromDate:controller.selectedStatus.updateDate];
+        NSString *readItDate=[formatter stringFromDate:controller.selectedStatus.updateDate];
+        NSString *readStatusWithDate=[NSString stringWithFormat:@"%@ on %@",controller.selectedStatus.readingStatus, readItDate];
+        self.statusField.text=readStatusWithDate ;
     } else{
-        self.readingStatusTableView.detailTextLabel.text=@"";
+        self.statusField.text=controller.selectedStatus.readingStatus;
     }
     self.selectedStatus=controller.selectedStatus;
-    [controller.navigationController popViewControllerAnimated:YES];
-}*/
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 -(void)saveCurrentBook{

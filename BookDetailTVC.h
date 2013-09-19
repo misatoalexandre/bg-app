@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *authorField;
 @property (weak, nonatomic) IBOutlet UITextView *notesField;
 @property (weak, nonatomic) IBOutlet UITextField *dateAddedField;
+@property (weak, nonatomic) IBOutlet UITextField *statusField;
 
 @property (strong, nonatomic) Book *currentBook;
 @property (strong, nonatomic) Genre *selectedGenre;

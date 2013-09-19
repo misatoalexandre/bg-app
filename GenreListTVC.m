@@ -42,12 +42,6 @@
 
   
 
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,13 +50,17 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark-NewGenreTVCDelegate Method
--(void) newGenreTVCSave:(NewGenreTVC *)controller{
+-(void) newGenreTVCSave{
     NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
-    
-    [controller.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) newGenreTVCCancel:(Genre *)genreToDelete{
+    [self.managedObjectContext deleteObject:genreToDelete];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - Navigation : prepare for segue
 
@@ -113,17 +111,16 @@
     Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=genre.genre;
     
+    //Congiguring the detail text
     unsigned int bookCount=[genre.genreBooks count];
-    NSString *bookCountString=[NSString stringWithFormat:@"%d", bookCount];
-    cell.detailTextLabel.text=bookCountString;
     
-    /*if (bookCount > 1 ) {
+    if (bookCount > 1 ) {
         NSString *bookCountDisplay=[NSString stringWithFormat:@"%d books", bookCount];
         cell.detailTextLabel.text=bookCountDisplay;
     } else{
         NSString *noBookCountDisplay=[NSString stringWithFormat:@"%d book", bookCount];
         cell.detailTextLabel.text=noBookCountDisplay;
-    }*/
+    }
 
     return cell;
     
