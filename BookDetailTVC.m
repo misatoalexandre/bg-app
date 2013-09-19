@@ -36,6 +36,10 @@
     self.dateAddedField.text=[formatter stringFromDate:self.currentBook.dateAdded];
     self.categoryLabel.text=self.currentBook.genre.genre;
     self.collectionLabel.text=self.currentBook.favorite.favorite;
+    self.statusField.text=self.currentBook.status.readingStatus;
+    
+    self.statusMissingAlert.hidden=YES;
+    self.bookTitleAlert.hidden=YES;
    
       }
 
@@ -130,40 +134,51 @@
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [view show];
-    } if (self.selectedStatus.readingStatus==nil) {
+        self.bookTitleAlert.hidden=NO;
+    } else if (self.selectedStatus.readingStatus==nil) {
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Status Missing" message:@"Please select your reading status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [view show];
+        self.statusMissingAlert.hidden=NO;
        
+        
+        
     }else{
         [self saveCurrentBook];
         [self.delegate bookDetailTVCDelegateSave];
+        self.statusMissingAlert.hidden=YES;
+        self.bookTitleAlert.hidden=YES;
+       
+        
+        
     }
     
     
-   /* if (![self.titleField.text isEqualToString:@""]) {
-        
-            [self saveCurrentBook];
-            [self.delegate bookDetailTVCDelegateSave];
-    
-    } else
-    {
+}
+
+- (IBAction)saveNav:(id)sender {
+   
+    if ([self.titleField.text isEqualToString:@""]) {
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [view show];
-    }*/
+        self.bookTitleAlert.hidden=NO;
+    } else if (self.selectedStatus.readingStatus==nil) {
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Status Missing" message:@"Please select your reading status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [view show];
+        self.statusMissingAlert.hidden=NO;
+        
+        
+    }else{
+        [self saveCurrentBook];
+        [self.delegate bookDetailTVCDelegateSavePush:self];
+        self.statusMissingAlert.hidden=YES;
+        self.bookTitleAlert.hidden=YES;
+        
     
     }
 
-- (IBAction)saveNav:(id)sender {
-    if (![self.titleField.text isEqualToString:@""]) {
-        [self saveCurrentBook];
-        [self.delegate bookDetailTVCDelegateSavePush:self];
-    } else{
-        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [view show];
-    }
-    
 }
 
 -(void)cancel:(id)sender{

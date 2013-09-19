@@ -32,6 +32,10 @@
 @property (weak, nonatomic) id<BookDetailTVCDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *collectionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bookTitleAlert;
+@property (weak, nonatomic) IBOutlet UILabel *statusMissingAlert;
+@property (weak, nonatomic) IBOutlet UILabel *statusBackgroundLabel;
+
 
 
 
