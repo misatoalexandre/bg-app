@@ -54,9 +54,7 @@
     [self insertGenrewithGenre:@"Business & Investing"];
     [self insertGenrewithGenre:@"Biographies & Memoirs"];
     [self insertGenrewithGenre:@"Arts & Entertainment"];
-    
-    
- 
+
 }
  
 
@@ -78,22 +76,31 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark-Prepare for segue
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
    
 
     if ([segue.identifier isEqualToString:@"addGenre"]) {
         BookGenreDetailTVC *bgdtvc=(BookGenreDetailTVC *)[segue destinationViewController];
         bgdtvc.delegate=self;
+      
         Genre *newGenre=(Genre *)[NSEntityDescription insertNewObjectForEntityForName:@"Genre" inManagedObjectContext:self.managedObjectContext];
         bgdtvc.currentGenre=newGenre;
     }
 }
--(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller{
-    NSError *error=nil;
+
+-(void)bookGenreDetailTVCDelegateSave{
+       NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
     }
+
+-(void)bookGenreDetailTVCDelegateCancel:(Genre *)genreToDelete{
+    [self.managedObjectContext deleteObject:genreToDelete];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 #pragma mark - Table view data source
@@ -118,6 +125,19 @@
     // Configure the cell...
     Genre *genre=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=genre.genre;
+    
+    unsigned int bookCount=[genre.genreBooks count];
+    
+    if (bookCount>1) {
+         NSString *bookNumber=[NSString stringWithFormat:@"%d books",bookCount];
+         cell.detailTextLabel.text=bookNumber;
+    }else{
+        NSString *bookNumber=[NSString stringWithFormat:@"%d book",bookCount];
+        cell.detailTextLabel.text=bookNumber;
+
+    }
+    
+
     
     return cell;
     

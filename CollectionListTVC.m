@@ -33,10 +33,6 @@
    
         [super viewDidLoad];
     
-    
-    [self.tableView reloadData];
-    
-    
         NSError *error=nil;
         if (![self.fetchedResultsController performFetch:&error]) {
             NSLog(@"Error %@", error);
@@ -44,22 +40,9 @@
             [alert show];
         }
     
-        // Uncomment the following line to preserve selection between presentations.
-        // self.clearsSelectionOnViewWillAppear = NO;
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+}
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
--(void)viewDidUnload{
-   
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,8 +55,6 @@
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
-
-    [controller.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark-prepare for segue
 
@@ -103,14 +84,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    //return [[self.fetchedResultsController sections]count];
     
-    if  (self.tableView ==self.searchDisplayController.searchResultsTableView){
-        return 1;
-    }else{
-        return [[self.fetchedResultsController sections]count];
-    }
+    return [[self.fetchedResultsController sections]count];
+   
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -119,9 +95,6 @@
     
         id<NSFetchedResultsSectionInfo> secInfo=[[self.fetchedResultsController sections]objectAtIndex:section];
         return [secInfo numberOfObjects];
-    
-
-   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,14 +122,7 @@
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -175,23 +141,6 @@
     
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark-Fetched Results Controller Section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController!=nil) {
@@ -203,11 +152,8 @@
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    //NSSortDescriptor *sortDescriptorOne = [[NSSortDescriptor alloc] initWithKey:@"favorite."
-                                                                  // ascending:YES];
-
-    NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"favorite"
-                                                                   ascending:YES];
+        NSSortDescriptor *sortDescriptorTwo = [[NSSortDescriptor alloc] initWithKey:@"favorite"
+                                                                   ascending:NO];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorTwo, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];

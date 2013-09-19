@@ -171,7 +171,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"genre"
-                                                                   ascending:YES];
+                                                                   ascending:NO];
     
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,nil];
     [fetchRequest setSortDescriptors:sortDescriptors];

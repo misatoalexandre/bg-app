@@ -18,8 +18,11 @@
 @property (weak, nonatomic) id<BookGenreDetailTVCDelegate> delegate;
 - (IBAction)removeKeyboard:(id)sender;
 - (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 @end
 
 @protocol BookGenreDetailTVCDelegate
--(void)bookGenreDetailTVCDelegateSave:(BookGenreDetailTVC *)controller;
+-(void)bookGenreDetailTVCDelegateSave;
+-(void)bookGenreDetailTVCDelegateCancel:(Genre *)genreToDelete;
 @end

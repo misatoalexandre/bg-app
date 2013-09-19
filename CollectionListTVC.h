@@ -11,7 +11,7 @@
 #import "NewCollectionTVC.h"
 
 
-@interface CollectionListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewCollectionTVCDelegate, UISearchDisplayDelegate,UISearchBarDelegate>
+@interface CollectionListTVC : UITableViewController<NSFetchedResultsControllerDelegate, NewCollectionTVCDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

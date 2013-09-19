@@ -21,10 +21,13 @@
 @property (weak, nonatomic) id<BookCollectionDetailTVCDelegate> delegate;
 - (IBAction)removeKeyboard:(id)sender;
 - (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 @end
 
 @protocol BookCollectionDetailTVCDelegate
--(void)bookCollectionDetailTVCDelegateSave:(BookCollectionDetailTVC *)controller;
+-(void)bookCollectionDetailTVCDelegateSave;
+-(void)bookCollectionDetailTVCDelegateCancel:(Favorite *)favoriteToDelete;
 @end
 
 

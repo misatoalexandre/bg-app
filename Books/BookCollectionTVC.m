@@ -89,18 +89,18 @@
         bookCollectiondtvc.currentFavorite=newFavorite;
 
     }
-    
     }
 
 -(void)bookCollectionDetailTVCDelegateSave:(BookCollectionDetailTVC *)controller{
     NSError *error=nil;
-    // NSManagedObjectContext *context=self.managedObjectContext;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error in saving new genre. %@", error);
     }
-    
 }
-
+-(void)bookCollectionDetailTVCDelegateCancel:(Favorite *)favoriteToDelete{
+    [self.managedObjectContext deleteObject:favoriteToDelete];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Table view data source
 
@@ -124,6 +124,15 @@
     // Configure the cell...
     Favorite *favorite=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=favorite.favorite;
+    unsigned int bookCount=[favorite.favoriteBooks count];
+    
+    if (bookCount>1) {
+        NSString *bookNumber=[NSString stringWithFormat:@"%d books",bookCount];
+        cell.detailTextLabel.text=bookNumber;
+    }else{
+        NSString *bookNumber=[NSString stringWithFormat:@"%d book",bookCount];
+        cell.detailTextLabel.text=bookNumber;
+    }
     
     return cell;
     

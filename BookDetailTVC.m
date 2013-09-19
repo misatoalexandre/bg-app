@@ -107,6 +107,7 @@
 
 
 -(void)saveCurrentBook{
+  
     [self.currentBook setTitle:self.titleField.text];
     [self.currentBook setAuthor:self.authorField.text];
     [self.currentBook setNotes:self.notesField.text];
@@ -121,13 +122,24 @@
 }
 - (IBAction)save:(id)sender {
     //Saving Book Entity's attributes
-    [self saveCurrentBook];
-    [self.delegate bookDetailTVCDelegateSave];
-}
+    if (![self.titleField.text isEqualToString:@""]) {
+        [self saveCurrentBook];
+        [self.delegate bookDetailTVCDelegateSave];
+    } else{
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+    }
 
 - (IBAction)saveNav:(id)sender {
-    [self saveCurrentBook];
-    [self.delegate bookDetailTVCDelegateSavePush:self];
+    if (![self.titleField.text isEqualToString:@""]) {
+        [self saveCurrentBook];
+        [self.delegate bookDetailTVCDelegateSavePush:self];
+    } else{
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Title Missing" message:@"Please add a book title to save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+    
 }
 
 -(void)cancel:(id)sender{

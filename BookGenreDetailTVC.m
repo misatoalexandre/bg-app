@@ -50,7 +50,7 @@
 - (IBAction)save:(id)sender {
     if (![self.genreField.text isEqualToString:@""]) {
         [self.currentGenre setGenre:self.genreField.text];
-        [self.delegate bookGenreDetailTVCDelegateSave:self];
+        [self.delegate bookGenreDetailTVCDelegateSave];
         self.genreField.text=@"";
     }else{
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Categoy name missing" message:@"Please type a new category name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -59,4 +59,9 @@
     
 
 }
+- (IBAction)cancel:(id)sender{
+    
+    [self.delegate bookGenreDetailTVCDelegateCancel:self.currentGenre];
+}
+
 @end

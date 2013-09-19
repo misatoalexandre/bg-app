@@ -28,11 +28,6 @@
     [super viewDidLoad];
     self.collectionField.text=self.currentFavorite.favorite;
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,8 +41,15 @@
 }
 
 - (IBAction)save:(id)sender {
-    [self.currentFavorite setFavorite:self.collectionField.text];
-    [self.delegate newCollectionTVCSave:self];
+    if (![self.collectionField.text isEqualToString:@""]) {
+        [self.currentFavorite setFavorite:self.collectionField.text];
+        [self.delegate newCollectionTVCSave:self];
+        self.collectionField.text=@"";
+    }else{
+        UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Collection name missing" message:@"Please type a new collection name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+  
  
     
 }
