@@ -21,11 +21,13 @@
 @property (weak, nonatomic) id <BookCollectionTVCDelegate> delegate;
 @property (strong, nonatomic)Favorite *selectedCollection;
 
+- (IBAction)cancel:(id)sender;
 @end
 
 @protocol BookCollectionTVCDelegate
 
 -(void)collectionWasSelectedOnBookCollectionTVC:(BookCollectionTVC*)controller;
+-(void)bookCollectionTVCCancel;
 @end
 
 

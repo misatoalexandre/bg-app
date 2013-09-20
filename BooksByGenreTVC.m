@@ -10,6 +10,7 @@
 #import "EditGenreVC.h"
 #import "BooksByGenreTVC.h"
 #import "AppDelegate.h"
+#import "Favorite.h"
 
 @interface BooksByGenreTVC (){
     //unsigned int count;
@@ -86,7 +87,12 @@
     // Configure the cell...
     Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
-    cell.detailTextLabel.text=book.author;
+    if (book.favorite.favorite==nil) {
+        cell.detailTextLabel.text=[NSString stringWithFormat:@"by %@", book.author];
+    } else{
+        cell.detailTextLabel.text=[NSString stringWithFormat:@"by %@ : %@", book.author, book.favorite.favorite];
+    }
+    
     
     
 

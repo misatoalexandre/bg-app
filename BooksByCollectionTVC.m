@@ -9,6 +9,7 @@
 #import "BooksByCollectionTVC.h"
 #import "Book.h"
 #import "EditCollectionTVC.h"
+#import "Genre.h"
 
 @interface BooksByCollectionTVC ()
 {
@@ -88,6 +89,14 @@
     // Configure the cell...
     Book *book=[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=book.title;
+    
+    if (book.genre.genre==nil) {
+        cell.detailTextLabel.text=[NSString stringWithFormat:@"by %@", book.author];
+    } else{
+        cell.detailTextLabel.text=[NSString stringWithFormat:@"by %@ : %@", book.author, book.genre.genre];
+    }
+
+    
     cell.detailTextLabel.text=book.author;
     
     return cell;

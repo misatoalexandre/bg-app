@@ -37,6 +37,8 @@
     self.categoryLabel.text=self.currentBook.genre.genre;
     self.collectionLabel.text=self.currentBook.favorite.favorite;
     self.statusField.text=self.currentBook.status.readingStatus;
+ 
+    
     
     self.statusMissingAlert.hidden=YES;
     self.bookTitleAlert.hidden=YES;
@@ -86,6 +88,9 @@
     self.selectedGenre=controller.selectedGenre;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+-(void)bookGenreTVCCancel{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(void)collectionWasSelectedOnBookCollectionTVC:(BookCollectionTVC *)controller{
     //Passing the selectedCollection's value to the BookDetailTVC and displaying it in collectionlTableViewCell.
@@ -94,22 +99,18 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
+-(void)bookCollectionTVCCancel{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller{
     //Passing the selectedStatus's value to the BookDetailTVC and displyaing it in the readingStatusTableView(Cell).
-    
-    
-    if ([controller.selectedStatus.readingStatus isEqualToString:@"Read it"]) {
-        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        NSString *readItDate=[formatter stringFromDate:controller.selectedStatus.updateDate];
-        NSString *readStatusWithDate=[NSString stringWithFormat:@"%@ on %@",controller.selectedStatus.readingStatus, readItDate];
-        self.statusField.text=readStatusWithDate ;
-    }
-    else{
-        self.statusField.text=controller.selectedStatus.readingStatus;
-    }
     self.selectedStatus=controller.selectedStatus;
+    self.statusField.text=controller.selectedStatus.readingStatus;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)bookStatusTVCCancel{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -122,10 +123,6 @@
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [self.currentBook setDateAdded:[formatter dateFromString:self.dateAddedField.text]];
-    //Saving Genre entity's attribute
-    [self.currentBook setGenre:self.selectedGenre];
-    [self.currentBook setFavorite:self.selectedCollection];
-    [self.currentBook setStatus:self.selectedStatus];
     
 }
 - (IBAction)save:(id)sender {
@@ -140,17 +137,18 @@
         
         [view show];
         self.statusMissingAlert.hidden=NO;
-       
-        
-        
-    }else{
+    }
+    else{
         [self saveCurrentBook];
+        //setting attributes for all relationships.
+        [self.currentBook setGenre:self.selectedGenre];
+        [self.currentBook setFavorite:self.selectedCollection];
+        [self.currentBook setStatus:self.selectedStatus];
+       
         [self.delegate bookDetailTVCDelegateSave];
         self.statusMissingAlert.hidden=YES;
         self.bookTitleAlert.hidden=YES;
        
-        
-        
     }
     
     
@@ -168,10 +166,29 @@
         
         [view show];
         self.statusMissingAlert.hidden=NO;
-        
+        //self.selectedStatus.readingStatus==nil
         
     }else{
         [self saveCurrentBook];
+        
+        if (self.selectedGenre.genre!=nil) {
+            [self.currentBook setGenre:self.selectedGenre];
+        }else{
+            [self.currentBook.genre setGenre:self.categoryLabel.text];
+        }
+        
+        if (self.selectedCollection.favorite!=nil){
+            [self.currentBook setFavorite:self.selectedCollection];
+        }else {
+            [self.currentBook.favorite setFavorite:self.collectionLabel.text];
+        }
+        
+        if (self.selectedStatus.readingStatus!=nil) {
+            [self.currentBook setStatus:self.selectedStatus];
+        }else{
+            [self.currentBook.status setReadingStatus:self.statusField.text];
+        }
+        
         [self.delegate bookDetailTVCDelegateSavePush:self];
         self.statusMissingAlert.hidden=YES;
         self.bookTitleAlert.hidden=YES;

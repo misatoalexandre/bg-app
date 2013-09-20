@@ -60,7 +60,10 @@
 
 - (void)viewDidLoad
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [super viewDidLoad];
+    [super viewDidLoad];
+    
     NSError *error=nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"Error %@", error);
@@ -267,4 +270,7 @@
     }
 }
 
+- (IBAction)cancel:(id)sender {
+    [self.delegate bookGenreTVCCancel];
+}
 @end

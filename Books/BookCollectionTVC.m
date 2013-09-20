@@ -258,4 +258,7 @@
     }
 }
 
+- (IBAction)cancel:(id)sender {
+    [self.delegate bookCollectionTVCCancel];
+}
 @end

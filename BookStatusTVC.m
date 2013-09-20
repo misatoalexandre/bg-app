@@ -49,6 +49,8 @@
 
 - (void)viewDidLoad
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [super viewDidLoad];
     [super viewDidLoad];
     NSError *error=nil;
     if (![self.fetchedResultsController performFetch:&error]) {
@@ -103,16 +105,36 @@
     
     return [[[self.fetchedResultsController sections]objectAtIndex:section]name];
 }
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        NSManagedObjectContext *context=self.managedObjectContext;
+        Status *status=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [context deleteObject:status];
+        
+        NSError *error=nil;
+        if (![context save:&error]) {
+            NSLog(@"Error %@", error);
+        }
+    }
+    
+}
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.selectedStatus=[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.delegate statusWasSelectedOnBookStatusnTVC:self];
+    
     
     if ([self.selectedStatus.readingStatus isEqualToString:@"Read it"]) {
         self.selectedStatus.updateDate=[NSDate date];
-       NSString *message=[NSString stringWithFormat:@"on %@", self.selectedStatus.updateDate];
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Read this book" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+       //NSString *message=[NSString stringWithFormat:@"on %@", self.selectedStatus.updateDate];
+       // UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Read this book" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        //[alert show];
+        
+           }
+    [self.delegate statusWasSelectedOnBookStatusnTVC:self];
+
    
 
 }
@@ -178,4 +200,7 @@
     }
 }
 
+- (IBAction)cancel:(id)sender {
+    [self.delegate bookStatusTVCCancel];
+}
 @end

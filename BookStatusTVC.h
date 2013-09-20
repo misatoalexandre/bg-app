@@ -19,11 +19,13 @@
 @property (weak, nonatomic) id <BookStatusTVCDelegate> delegate;
 @property (strong, nonatomic) Status *selectedStatus;
 
+- (IBAction)cancel:(id)sender;
 @end
 
 @protocol BookStatusTVCDelegate
 
--(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC*)controller;
+-(void)statusWasSelectedOnBookStatusnTVC:(BookStatusTVC *)controller;
+-(void)bookStatusTVCCancel;
 
 @end
 

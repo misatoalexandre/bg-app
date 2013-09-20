@@ -21,11 +21,13 @@
 @property (weak, nonatomic) id <BookGenreTVCDelegate> delegate;
 @property (strong, nonatomic) Genre *selectedGenre;
 
+- (IBAction)cancel:(id)sender;
 @end
 
 @protocol BookGenreTVCDelegate
 
 -(void)genreWasSelectedOnBookGenreTVC:(BookGenreTVC *)controller;
+-(void)bookGenreTVCCancel;
 @end
 
 
