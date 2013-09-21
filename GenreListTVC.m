@@ -82,6 +82,7 @@
         bbgtvc.selectedGenre=self.selectedGenre;
         bbgtvc.managedObjectContext=myApp.managedObjectContext;
         bbgtvc.title=self.selectedGenre.genre;
+        
     }
     
     

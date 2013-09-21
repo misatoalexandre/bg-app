@@ -19,6 +19,7 @@
 @protocol BookDetailTVCDelegate;
 
 @interface BookDetailTVC : UIViewController <BookGenreTVCDelegate,BookCollectionTVCDelegate, BookStatusTVCDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *authorField;
 @property (weak, nonatomic) IBOutlet UITextView *notesField;

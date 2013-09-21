@@ -35,12 +35,7 @@
    NSDictionary *navbarTitleTextAttributes =
     [NSDictionary dictionaryWithObjectsAndKeys:
     
-     [UIColor whiteColor],UITextAttributeTextColor,
-     
-     [UIColor whiteColor], UITextAttributeTextShadowColor,
-     
-     
-     nil];
+     [UIColor whiteColor],NSForegroundColorAttributeName,nil];
     
    [[UINavigationBar appearance]setTitleTextAttributes:navbarTitleTextAttributes];
 

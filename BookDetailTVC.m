@@ -28,6 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //ScrollView
+    [self.scrollView setScrollEnabled:YES];
+    [self.scrollView setContentSize:CGSizeMake(320, 1000)];
+    
     self.titleField.text=self.currentBook.title;
     self.authorField.text=self.currentBook.author;
     self.notesField.text=self.currentBook.notes;
@@ -132,7 +137,8 @@
         
         [view show];
         self.bookTitleAlert.hidden=NO;
-    } else if (self.selectedStatus.readingStatus==nil) {
+    }
+    else if (self.selectedStatus.readingStatus==nil) {
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Status Missing" message:@"Please select your reading status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [view show];
@@ -161,12 +167,11 @@
         
         [view show];
         self.bookTitleAlert.hidden=NO;
-    } else if (self.selectedStatus.readingStatus==nil) {
+    } else if (self.selectedStatus.readingStatus==nil &&[self.statusField.text isEqualToString:@""]) {
         UIAlertView *view=[[UIAlertView alloc]initWithTitle:@"Status Missing" message:@"Please select your reading status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [view show];
         self.statusMissingAlert.hidden=NO;
-        //self.selectedStatus.readingStatus==nil
         
     }else{
         [self saveCurrentBook];
@@ -190,7 +195,7 @@
         }
         
         [self.delegate bookDetailTVCDelegateSavePush:self];
-        self.statusMissingAlert.hidden=YES;
+       // self.statusMissingAlert.hidden=YES;
         self.bookTitleAlert.hidden=YES;
         
     

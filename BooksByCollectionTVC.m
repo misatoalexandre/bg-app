@@ -96,9 +96,6 @@
         cell.detailTextLabel.text=[NSString stringWithFormat:@"by %@ : %@", book.author, book.genre.genre];
     }
 
-    
-    cell.detailTextLabel.text=book.author;
-    
     return cell;
     
 }

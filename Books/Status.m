@@ -19,6 +19,6 @@
 
 -(void)awakeFromInsert{
     [super awakeFromInsert];
-    self.readingStatus=@"Wish to Read";
+    
 }
 @end
