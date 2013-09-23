@@ -40,6 +40,7 @@
 
 
 
+- (IBAction)doneEditingNotes:(id)sender;
 
 - (IBAction)saveNav:(id)sender;
 - (IBAction)cancel:(id)sender;

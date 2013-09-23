@@ -26,9 +26,10 @@
     MenuTVC *mtvc=(MenuTVC *)[[nav viewControllers]objectAtIndex:0];
                    mtvc.managedObjectContext=self.managedObjectContext;
 
-   UIImage *navImage=[UIImage imageNamed:@"34495e.png"];
+  UIImage *navImage=[UIImage imageNamed:@"34495e.png"];
    
-    [[UINavigationBar appearance]setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+  [[UINavigationBar appearance]setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    //[[UINavigationBar appearance]setBackgroundColor:[UIColor whiteColor]];
     [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     
     

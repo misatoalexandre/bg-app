@@ -31,13 +31,13 @@
     
     //ScrollView
     [self.scrollView setScrollEnabled:YES];
-    [self.scrollView setContentSize:CGSizeMake(320, 1000)];
+    [self.scrollView setContentSize:CGSizeMake(320, 1500)];
     
     self.titleField.text=self.currentBook.title;
     self.authorField.text=self.currentBook.author;
     self.notesField.text=self.currentBook.notes;
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
     self.dateAddedField.text=[formatter stringFromDate:self.currentBook.dateAdded];
     self.categoryLabel.text=self.currentBook.genre.genre;
     self.collectionLabel.text=self.currentBook.favorite.favorite;
@@ -126,7 +126,7 @@
     [self.currentBook setAuthor:self.authorField.text];
     [self.currentBook setNotes:self.notesField.text];
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
     [self.currentBook setDateAdded:[formatter dateFromString:self.dateAddedField.text]];
     
 }
@@ -158,6 +158,10 @@
     }
     
     
+}
+
+- (IBAction)doneEditingNotes:(id)sender {
+    [self.notesField resignFirstResponder];
 }
 
 - (IBAction)saveNav:(id)sender {

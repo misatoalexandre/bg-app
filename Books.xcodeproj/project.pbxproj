@@ -27,6 +27,7 @@
 		5389231F17C7B02100EFFC7F /* BooksByCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389231E17C7B02100EFFC7F /* BooksByCollectionTVC.m */; };
 		5389232817C7CD3100EFFC7F /* EditGenreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232717C7CD3100EFFC7F /* EditGenreVC.m */; };
 		5389232E17C7D58600EFFC7F /* EditCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */; };
+		53912D7C17F09F20000D91A5 /* bookxgeekPacifico.png in Resources */ = {isa = PBXBuildFile; fileRef = 53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */; };
 		539AA67317C2AE6E004C33F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67217C2AE6E004C33F4 /* Foundation.framework */; };
 		539AA67517C2AE6E004C33F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */; };
 		539AA67717C2AE6E004C33F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67617C2AE6E004C33F4 /* UIKit.framework */; };
@@ -105,6 +106,7 @@
 		5389232717C7CD3100EFFC7F /* EditGenreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditGenreVC.m; sourceTree = "<group>"; };
 		5389232C17C7D58600EFFC7F /* EditCollectionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCollectionTVC.h; sourceTree = "<group>"; };
 		5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCollectionTVC.m; sourceTree = "<group>"; };
+		53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookxgeekPacifico.png; sourceTree = "<group>"; };
 		539AA66F17C2AE6E004C33F4 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539AA67217C2AE6E004C33F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				53DEB61017EA2BCF0005B64D /* man.png */,
+				53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */,
 				53DEB62517EB496D0005B64D /* 34495e.png */,
 				53DEB61617EA42920005B64D /* open-box.png */,
 				53DEB61E17EAA8CF0005B64D /* navyBlue.png */,
@@ -398,6 +401,7 @@
 				53DEB61517EA42890005B64D /* box.png in Resources */,
 				53DEB61317EA3CF60005B64D /* clock.png in Resources */,
 				53DEB61F17EAA8CF0005B64D /* navyBlue.png in Resources */,
+				53912D7C17F09F20000D91A5 /* bookxgeekPacifico.png in Resources */,
 				538922D117C3013500EFFC7F /* MainStoryboard.storyboard in Resources */,
 				53DEB62617EB496D0005B64D /* 34495e.png in Resources */,
 				53DEB62117EAA9AF0005B64D /* navy.png in Resources */,
