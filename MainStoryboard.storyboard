@@ -1510,6 +1510,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="infoButton:" destination="Ga2-tc-U1z" eventType="touchUpInside" id="oDm-CT-p36"/>
+                                </connections>
                             </button>
                             <connections>
                                 <segue destination="MRM-hS-TJG" kind="push" id="7xq-Mu-41d"/>

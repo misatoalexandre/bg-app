@@ -12,6 +12,7 @@
 @property  (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UILabel *bookCountLabel;
 
+//- (IBAction)infoButton:(id)sender;
 
 @end
 
