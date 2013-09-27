@@ -151,5 +151,6 @@
  */
 
 - (IBAction)infoButton:(id)sender {
+    //some code here
 }
 @end
