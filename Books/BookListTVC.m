@@ -39,6 +39,8 @@
         NSLog(@"Error %@", error);
         abort() ;
     }
+    
+   // self.totalBookCount
 }
 
 - (void)didReceiveMemoryWarning

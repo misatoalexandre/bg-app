@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5340D1D017F3541800B6D7E0 /* 236.png in Resources */ = {isa = PBXBuildFile; fileRef = 5340D1CF17F3541800B6D7E0 /* 236.png */; };
+		5340D1D217F354A500B6D7E0 /* settings-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 5340D1D117F354A500B6D7E0 /* settings-25.png */; };
+		5340D1D417F354AD00B6D7E0 /* settings-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 5340D1D317F354AD00B6D7E0 /* settings-32.png */; };
 		536FB46A17E76B6F00464B73 /* MenuTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 536FB46917E76B6F00464B73 /* MenuTVC.m */; };
+		5386186517F5D53F0027D4B9 /* easelly_visual-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5386186417F5D53F0027D4B9 /* easelly_visual-1.jpg */; };
 		5389227C17C2C6CB00EFFC7F /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389227B17C2C6CB00EFFC7F /* Favorite.m */; };
 		5389228217C2C6CB00EFFC7F /* Genre.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389228117C2C6CB00EFFC7F /* Genre.m */; };
 		5389228517C2C6CB00EFFC7F /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389228417C2C6CB00EFFC7F /* Status.m */; };
@@ -28,7 +32,6 @@
 		5389232817C7CD3100EFFC7F /* EditGenreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232717C7CD3100EFFC7F /* EditGenreVC.m */; };
 		5389232E17C7D58600EFFC7F /* EditCollectionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */; };
 		53912D7C17F09F20000D91A5 /* bookxgeekPacifico.png in Resources */ = {isa = PBXBuildFile; fileRef = 53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */; };
-		53912D7E17F0A168000D91A5 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 53912D7D17F0A168000D91A5 /* settings.png */; };
 		539AA67317C2AE6E004C33F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67217C2AE6E004C33F4 /* Foundation.framework */; };
 		539AA67517C2AE6E004C33F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */; };
 		539AA67717C2AE6E004C33F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AA67617C2AE6E004C33F4 /* UIKit.framework */; };
@@ -67,8 +70,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5340D1CF17F3541800B6D7E0 /* 236.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 236.png; sourceTree = "<group>"; };
+		5340D1D117F354A500B6D7E0 /* settings-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-25.png"; sourceTree = "<group>"; };
+		5340D1D317F354AD00B6D7E0 /* settings-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-32.png"; sourceTree = "<group>"; };
 		536FB46817E76B6F00464B73 /* MenuTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTVC.h; sourceTree = "<group>"; };
 		536FB46917E76B6F00464B73 /* MenuTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTVC.m; sourceTree = "<group>"; };
+		5386186417F5D53F0027D4B9 /* easelly_visual-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "easelly_visual-1.jpg"; sourceTree = "<group>"; };
 		5389227A17C2C6CB00EFFC7F /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Favorite.h; path = Books/Favorite.h; sourceTree = "<group>"; };
 		5389227B17C2C6CB00EFFC7F /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Favorite.m; path = Books/Favorite.m; sourceTree = "<group>"; };
 		5389228017C2C6CB00EFFC7F /* Genre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Genre.h; path = Books/Genre.h; sourceTree = "<group>"; };
@@ -108,7 +115,6 @@
 		5389232C17C7D58600EFFC7F /* EditCollectionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCollectionTVC.h; sourceTree = "<group>"; };
 		5389232D17C7D58600EFFC7F /* EditCollectionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCollectionTVC.m; sourceTree = "<group>"; };
 		53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookxgeekPacifico.png; sourceTree = "<group>"; };
-		53912D7D17F0A168000D91A5 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		539AA66F17C2AE6E004C33F4 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539AA67217C2AE6E004C33F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		539AA67417C2AE6E004C33F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -285,7 +291,10 @@
 		539AA67B17C2AE6E004C33F4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				53912D7D17F0A168000D91A5 /* settings.png */,
+				5386186417F5D53F0027D4B9 /* easelly_visual-1.jpg */,
+				5340D1D117F354A500B6D7E0 /* settings-25.png */,
+				5340D1D317F354AD00B6D7E0 /* settings-32.png */,
+				5340D1CF17F3541800B6D7E0 /* 236.png */,
 				53DEB61017EA2BCF0005B64D /* man.png */,
 				53912D7B17F09F20000D91A5 /* bookxgeekPacifico.png */,
 				53DEB62517EB496D0005B64D /* 34495e.png */,
@@ -401,15 +410,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5340D1D017F3541800B6D7E0 /* 236.png in Resources */,
 				53DEB61517EA42890005B64D /* box.png in Resources */,
 				53DEB61317EA3CF60005B64D /* clock.png in Resources */,
 				53DEB61F17EAA8CF0005B64D /* navyBlue.png in Resources */,
 				53912D7C17F09F20000D91A5 /* bookxgeekPacifico.png in Resources */,
+				5340D1D417F354AD00B6D7E0 /* settings-32.png in Resources */,
 				538922D117C3013500EFFC7F /* MainStoryboard.storyboard in Resources */,
 				53DEB62617EB496D0005B64D /* 34495e.png in Resources */,
 				53DEB62117EAA9AF0005B64D /* navy.png in Resources */,
+				5340D1D217F354A500B6D7E0 /* settings-25.png in Resources */,
+				5386186517F5D53F0027D4B9 /* easelly_visual-1.jpg in Resources */,
 				53DEB60F17EA18780005B64D /* diamond.png in Resources */,
-				53912D7E17F0A168000D91A5 /* settings.png in Resources */,
 				53DEB60D17EA155D0005B64D /* 66cc99.png in Resources */,
 				539AA67F17C2AE6E004C33F4 /* InfoPlist.strings in Resources */,
 				53DEB61117EA2BCF0005B64D /* man.png in Resources */,

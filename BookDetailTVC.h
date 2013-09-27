@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleAlert;
 @property (weak, nonatomic) IBOutlet UILabel *statusMissingAlert;
 
+ 
+
 
 
 

@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 
+//ivar to store the total book count on the menuTVC
+//@property (strong, nonatomic) NSInteger *totalBookCount;
 
 @end
 
